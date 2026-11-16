@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BZ Speakesy — Cocktail Menu &amp; Lab (v2.0)</title>
+  <title>BZ Speakesy — Cocktail Menu &amp; Lab (v2.1)</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231B1A18' stroke='%23B83B2B' stroke-width='3'/%3E%3Cpath d='M20 18 L44 18 L32 31 Z' fill='none' stroke='%23EDE8DF' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cline x1='32' y1='31' x2='32' y2='46' stroke='%23EDE8DF' stroke-width='2.2' stroke-linecap='round'/%3E%3Cline x1='24' y1='46' x2='40' y2='46' stroke='%23EDE8DF' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,18 +121,23 @@
       z-index: 200;
       background: var(--bg-elevated);
       border-bottom: 1px solid var(--border-hairline);
-      padding: var(--space-2) var(--space-4);
+      padding: 0 var(--space-4);
+      height: 54px;
+      display: flex;
+      align-items: center;
       transition: background-color var(--transition-slow), border-color var(--transition-slow);
     }
 
     .site-header-inner {
+      width: 100%;
       max-width: 1140px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--space-3);
-      min-height: 46px;
+      gap: var(--space-2);
+      height: 54px;
+      flex-wrap: nowrap;
     }
 
     .brand-link {
@@ -140,22 +145,24 @@
       background: transparent;
       border: none;
       padding: 4px 0;
-      min-height: var(--tap-min);
+      height: 44px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       font-family: var(--font-serif);
-      font-size: 1.22rem;
+      font-size: 1.2rem;
       font-weight: 600;
       letter-spacing: 0.02em;
       color: var(--ink);
       cursor: pointer;
       text-align: left;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .brand-logo-svg {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       flex-shrink: 0;
       transition: transform 240ms ease;
     }
@@ -167,17 +174,19 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .staff-only-nav {
       display: none;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       background: var(--bg-subtle);
-      padding: 3px;
+      padding: 2px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
+      height: 34px;
     }
 
     body.staff-unlocked .staff-only-nav {
@@ -190,14 +199,17 @@
       border: 1px solid transparent;
       color: var(--ink-secondary);
       font-family: var(--font-sans);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 500;
-      min-height: 34px;
-      padding: 3px 11px;
+      height: 28px;
+      padding: 0 9px;
       border-radius: 4px;
       cursor: pointer;
-      transition: all 180ms ease;
+      transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .staff-nav-btn:hover {
@@ -697,14 +709,14 @@
     .guest-menu-wrapper {
       max-width: 720px;
       margin: 0 auto;
-      padding: var(--space-6) var(--space-4) var(--space-12);
+      padding: var(--space-6) 14px var(--space-12);
     }
 
     .menu-card {
       background: var(--bg-elevated);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: var(--space-8) var(--space-6);
+      padding: var(--space-8) 16px;
       box-shadow: var(--shadow-soft);
       position: relative;
     }
@@ -720,45 +732,50 @@
 
     .menu-header {
       text-align: center;
-      margin-bottom: var(--space-12);
-      padding-bottom: var(--space-8);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-6);
       border-bottom: 1px solid var(--border-hairline);
     }
 
-    .brand-emblem-large {
-      width: 62px;
-      height: 62px;
-      margin: 0 auto var(--space-4);
+    @media (min-width: 640px) {
+      .menu-header {
+        margin-bottom: var(--space-12);
+        padding-bottom: var(--space-8);
+      }
     }
 
+    .brand-emblem-large {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 14px;
+    }
+
+    /* Promoted Primary Title Eyebrow: Balanced with Card Typography & Strictly 1 Line on Mobile */
     .menu-eyebrow {
       display: block;
       font-family: var(--font-sans);
-      font-size: 0.76rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      color: var(--ink-muted);
-      margin-bottom: var(--space-2);
-      text-transform: uppercase;
-    }
-
-    .menu-title {
-      font-family: var(--font-serif);
-      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-size: clamp(0.86rem, 2.8vw, 0.98rem);
       font-weight: 600;
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      margin: 0 0 var(--space-3);
-      color: var(--ink);
+      letter-spacing: 0.16em;
+      line-height: 1.35;
+      color: var(--seal-red);
+      margin: 0 auto 10px;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
-    .menu-epigraph {
-      font-size: 0.96rem;
-      color: var(--ink-secondary);
-      max-width: 430px;
+    /* Motto Quote: Sized In-Line with Cocktail Titles Below & Strictly 1 Line on Mobile */
+    .menu-motto-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.16rem, 4.85vw, 1.52rem);
+      font-weight: 600;
+      color: var(--ink);
       margin: 0 auto;
-      font-weight: 400;
-      line-height: 1.6;
+      max-width: 100%;
+      line-height: 1.25;
+      letter-spacing: -0.018em;
+      white-space: nowrap;
     }
 
     .menu-section {
@@ -777,7 +794,7 @@
       gap: var(--space-2);
       border-bottom: 1px solid var(--border-hairline);
       padding-bottom: var(--space-2);
-      margin-bottom: var(--space-8);
+      margin-bottom: var(--space-6);
     }
 
     .menu-section-title {
@@ -804,29 +821,37 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: var(--space-8);
+      gap: 0;
     }
 
+    /* Zero-Layout-Shift Menu Item: 100% identical padding/margin/box model before & after unlock */
     .guest-cocktail-item {
-      padding-bottom: var(--space-6);
+      padding: 16px 12px;
+      margin: 0 -12px;
       border-bottom: 1px dashed var(--border-hairline);
-      transition: background-color 200ms ease, padding 200ms ease;
       border-radius: var(--radius-sm);
+      transition: background-color 180ms ease;
+    }
+
+    .guest-cocktail-item:first-child {
+      padding-top: 6px;
     }
 
     .guest-cocktail-item:last-child {
       border-bottom: none;
-      padding-bottom: 0;
+      padding-bottom: 4px;
     }
 
     body.staff-unlocked .guest-cocktail-item {
       cursor: pointer;
-      padding: 10px 12px 14px;
-      margin: -10px -12px 0;
     }
 
     body.staff-unlocked .guest-cocktail-item:hover {
       background: var(--bg-subtle);
+    }
+
+    body.staff-unlocked .guest-cocktail-item:active {
+      background: var(--border);
     }
 
     .guest-cocktail-top {
@@ -1072,7 +1097,7 @@
       background: var(--bg);
       color: var(--ink);
       font-family: var(--font-sans);
-      font-size: 0.92rem;
+      font-size: 1rem; /* 16px prevents iOS Safari auto-zoom on focus */
       transition: border-color 200ms ease;
     }
 
@@ -2129,15 +2154,27 @@
 <body>
 
   <!-- ========================================================================
-       SHARED DATA SOURCE OF TRUTH (BZ Speakesy — Version 2.0 Major Release)
+       SHARED DATA SOURCE OF TRUTH (BZ Speakesy — Version 2.1 Release)
        ======================================================================== -->
   <script>
-    const APP_VERSION = "2.0";
+    const APP_VERSION = "2.1";
 
     const GITHUB_RELEASE_LOGS = [
       {
+        version: "2.1",
+        date: "Current Release (Sub-Version Update)",
+        commitSummary: "feat(menu,docs): v2.1 streamline guest menu header, remove epigraph & rule line, and align 1-line motto & eyebrow typography",
+        commitDescription: [
+          "Increment project version from 2.0 to 2.1 under the strict sub-versioning protocol (2.0 -> 2.1, 2.2, etc.; never auto-bumping to a new major release unless explicitly instructed).",
+          "Remove the redundant standalone menu title, the menu epigraph text, and the horizontal rule line from the public Bar Menu header (index.html), promoting the eyebrow text ('BZ Speakesy · House Credo') to act as the primary <h1> title.",
+          "Align the font sizing of both the menu eyebrow and the menu motto quote ('In Quiet Space, Every Botanical Speaks.') so their scale is balanced and in-line with the cocktail titles and cards below.",
+          "Calibrate responsive scaling and white-space rules so both the eyebrow title and motto quote render cleanly on a single line across mobile viewports (including iPhone Pro screens) without wrapping or overflowing.",
+          "Include mobile zero-layout-shift and iOS Safari 16px input auto-zoom prevention on staff unlock."
+        ]
+      },
+      {
         version: "2.0",
-        date: "Current Major Release",
+        date: "Major Release",
         commitSummary: "feat(v2.0): major UI/UX overhaul, table-integrated oz/ml toggle, 1-line mobile popup header & editorial Concept & Stories redesign",
         commitDescription: [
           "Officially bump project to Version 2.0 (Major Release) across index.html, lab.html, and README.md.",
@@ -3161,11 +3198,10 @@
             <line x1="25" y1="46" x2="39" y2="46" stroke="var(--seal-red)" stroke-width="1.15" stroke-opacity="0.38"/>
             <text x="32" y="37.5" text-anchor="middle" fill="var(--seal-red)" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="19" letter-spacing="1.8">BZ</text>
           </svg>
-          <span class="menu-eyebrow">Seasonal Libations</span>
-          <h1 class="menu-title">BZ Speakesy</h1>
-          <p class="menu-epigraph">
-            Bright fruit, wild botanicals, and quiet craft. Prepared to order with unhurried care.
-          </p>
+          <h1 class="menu-eyebrow">BZ Speakesy &middot; House Credo</h1>
+          <blockquote class="menu-motto-quote">
+            &ldquo;In Quiet Space, Every Botanical Speaks.&rdquo;
+          </blockquote>
         </header>
 
         <section class="menu-section" aria-labelledby="guest-originals-heading">
@@ -3322,7 +3358,7 @@
   <section id="view-lab" class="view-panel" role="tabpanel">
     <div class="lab-wrapper">
       <header class="lab-header">
-        <p class="lab-eyebrow">BZ Speakesy &middot; Internal Development &amp; Spec Book &middot; Version 2.0 Major Release</p>
+        <p class="lab-eyebrow">BZ Speakesy &middot; Internal Development &amp; Spec Book &middot; Version 2.1</p>
         <h1 class="lab-title">Collaborative Cocktail Development Lab</h1>
         <p class="lab-subtitle">
           All-in-one bar manager workspace: <strong>1. Cocktails</strong> (complete specs, naming stories &amp; technical concepts), <strong>2. Bar Inventory</strong> (interactive 52-item stock), and <strong>3. Concept &amp; Stories</strong> (BZ Speakesy philosophy &amp; brand inspiration).
@@ -3662,13 +3698,13 @@
   </section>
 
   <!-- ========================================================================
-       VIEW 3: COMPACT EXPORT TOOLBAR, STATIC RELEASE LOGS & README.md (v2.0)
+       VIEW 3: COMPACT EXPORT TOOLBAR, STATIC RELEASE LOGS & README.md (v2.1)
        ======================================================================== -->
   <section id="view-docs" class="view-panel" role="tabpanel">
     <div class="docs-wrapper">
       <div class="compact-export-bar no-print" role="region" aria-label="Quick File Exports">
         <div class="compact-export-info">
-          <h2 class="compact-export-title">Project File Exports (v2.0 Major Release)</h2>
+          <h2 class="compact-export-title">Project File Exports (v2.1 Release)</h2>
           <p class="compact-export-sub">Export standalone files for GitHub Pages deployment &amp; inventory backup</p>
         </div>
         <div class="compact-export-actions">
@@ -3681,23 +3717,33 @@
       </div>
 
       <article class="readme-document" id="readme-rendered-container" aria-label="Project Documentation README.md">
-        <h1>BZ Speakesy — Architecture, Mixology &amp; Release Reference (<code>README.md</code> &middot; v2.0)</h1>
+        <h1>BZ Speakesy — Architecture, Mixology &amp; Release Reference (<code>README.md</code> &middot; v2.1)</h1>
         <p>
-          A minimal, modern, Japanese wabi-sabi inspired cocktail web suite for <strong>BZ Speakesy</strong> (<strong>Version 2.0 Major Release</strong>) consisting of a guest-facing mobile bar menu (<code>index.html</code>), a passcode-protected 3-tab internal cocktail development and recipe book (<code>lab.html</code>), the 52-item Bar Inventory &amp; Perishables Mapping CSV (<code>bar_inventory_list.csv</code>), and this master specification document (<code>README.md</code>).
+          A minimal, modern, Japanese wabi-sabi inspired cocktail web suite for <strong>BZ Speakesy</strong> (<strong>Version 2.1</strong>, following strict sub-versioning <code>2.0 &rarr; 2.1, 2.2</code>) consisting of a guest-facing mobile bar menu (<code>index.html</code>), a passcode-protected 3-tab internal cocktail development and recipe book (<code>lab.html</code>), the 52-item Bar Inventory &amp; Perishables Mapping CSV (<code>bar_inventory_list.csv</code>), and this master specification document (<code>README.md</code>).
         </p>
 
-        <h2>1. Version 2.0 Major Release &amp; GitHub Commit Log</h2>
+        <h2>1. Strict Sub-Versioning Protocol &amp; GitHub Commit Log (<code>2.0 &rarr; 2.1</code>)</h2>
         <p>
-          <strong>Release Milestone:</strong> Version 2.0 marks the major production milestone of the <strong>BZ Speakesy</strong> web suite, consolidating all individual drink narratives into the <strong>Cocktails</strong> tab, dedicating the <strong>Concept &amp; Stories</strong> tab to the bar's overarching design philosophy and brand inspiration, and introducing ultra-compact UI controls and mobile-optimized overlays.
+          <strong>Sub-Versioning &amp; Changelog Policy:</strong> Ongoing updates increment the minor sub-version (<code>2.0 &rarr; 2.1, 2.2, 2.3</code>, etc.) and record a formal GitHub commit summary and description in the release log below. The project <strong>never</strong> automatically bumps to a new major release (such as <code>3.0</code>) unless explicitly instructed.
         </p>
 
         <div id="github-release-log-container"></div>
 
-        <h2>2. Version 2.0 Core UI/UX &amp; Structural Standards</h2>
+        <h2>2. Version 2.1 Core UI/UX &amp; Structural Standards</h2>
         <ul>
-          <li><strong>Ultra-Compact <code>oz / ml</code> Unit Toggle:</strong>
+          <li><strong>Streamlined Guest Menu Header (Eyebrow as Primary Title):</strong>
             <ul>
-              <li>Redesigned into a sleek <code>24px</code> segmented pill button across all views and modals, defaulting to <code>oz</code> with one-tap switching to <code>ml</code>.</li>
+              <li>Removed the redundant standalone menu title from the public Bar Menu card (<code>index.html</code>) and promoted the eyebrow text (<code>BZ Speakesy &middot; House Credo</code>) to act as the primary <code>&lt;h1&gt;</code> title above the bar motto (<em>&ldquo;In Quiet Space, Every Botanical Speaks.&rdquo;</em>) and epigraph, with refined font sizing, line-height, and vertical spacing across mobile, tablet, and desktop.</li>
+            </ul>
+          </li>
+          <li><strong>Zero-Shift Mobile Unlock &amp; iOS Auto-Zoom Prevention:</strong>
+            <ul>
+              <li>Menu items maintain 100% identical padding and margin before and after staff unlock, the sticky header is locked to a fixed <code>54px</code> height, and form inputs use a <code>16px</code> (<code>1rem</code>) font size with explicit blur-on-close so mobile devices (such as iPhone Pro) experience zero layout jump or auto-zoom.</li>
+            </ul>
+          </li>
+          <li><strong>Table-Integrated <code>oz / ml</code> Unit Toggle:</strong>
+            <ul>
+              <li>Embedded the ultra-compact <code>24px</code> segmented <code>oz / ml</code> pill toggle directly inside the single-serving recipe table header across both the Bar Menu Admin Popup and the Lab cocktail cards.</li>
             </ul>
           </li>
           <li><strong>Clean Metadata Micro-Badges &amp; Removal of Ingredient Count Labels:</strong>
@@ -3708,14 +3754,14 @@
           </li>
           <li><strong>Mobile-Optimized Bar Menu Admin Popup (<code>index.html</code>):</strong>
             <ul>
-              <li>Redesigned with a compact header where the cocktail name is strictly constrained to a <strong>single line</strong> (<code>white-space: nowrap; text-overflow: ellipsis</code>) on mobile screens alongside the compact <code>oz / ml</code> toggle and universal <code>X</code> close button.</li>
+              <li>Redesigned with a compact header where the cocktail name is strictly constrained to a <strong>single line</strong> (<code>white-space: nowrap; text-overflow: ellipsis</code>) on mobile screens alongside the universal <code>X</code> close button.</li>
             </ul>
           </li>
           <li><strong>Restructured 3-Tab Lab Architecture (<code>lab.html</code>):</strong>
             <ul>
-              <li><strong>Tab 1 — Cocktails (All-in-One Drink Hub):</strong> Houses every individual cocktail's <strong>Inspiration &amp; Naming Story</strong>, <strong>Technical Concept</strong>, compact single-serving spec table (<code>oz / ml</code>), step-by-step preparation method, visual color/garnish specs, and collapsible AI image prompt.</li>
+              <li><strong>Tab 1 — Cocktails (All-in-One Drink Hub):</strong> Houses every individual cocktail's <strong>Inspiration &amp; Naming Story</strong>, <strong>Technical Concept</strong>, compact single-serving spec table (with embedded <code>oz / ml</code> toggle), step-by-step preparation method, visual color/garnish specs, and collapsible AI image prompt.</li>
               <li><strong>Tab 2 — Bar Inventory (Interactive 52-Item Stock):</strong> Displays clean raw numeric count badges (<code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>) on each ingredient card and opens an interactive usage modal when clicked.</li>
-              <li><strong>Tab 3 — Concept &amp; Stories (Brand Philosophy):</strong> Dedicated to <strong>BZ Speakesy's</strong> overall bar concept, <em>Wabi-Sabi &amp; Ma</em> design philosophy, four mixology pillars, and stylistic inspirations from <em>Kumiko</em> and <em>Bar Bambi</em>.</li>
+              <li><strong>Tab 3 — Concept &amp; Stories (Editorial Brand Showcase):</strong> Features the <strong>BZ Speakesy</strong> motto and three structured sections: <strong>01 / Stories</strong>, <strong>02 / Concept</strong>, and <strong>03 / References</strong>.</li>
             </ul>
           </li>
         </ul>
@@ -3851,29 +3897,29 @@
 
         <details class="doc-accordion" open>
           <summary>
-            <span>Prompt for AI (Master Rebuild &amp; Extension Prompt — v2.0)</span>
+            <span>Prompt for AI (Master Rebuild &amp; Extension Prompt — v2.1)</span>
             <span class="badge">Expand / Export Prompt</span>
           </summary>
           <div class="snippet-header">
             <span>Give this prompt to any AI or developer to reproduce or extend the project with 100% fidelity:</span>
             <button type="button" class="btn-ghost no-print" id="export-ai-prompt-btn">Export Prompt (.txt)</button>
           </div>
-          <pre><code id="ai-rebuild-prompt">Act as an expert senior front-end engineer and master mixologist for "BZ Speakesy" (Version 2.0 Major Release). Build and maintain two self-contained HTML apps (`index.html` for the guest bar menu and `lab.html` for the internal cocktail development book), `bar_inventory_list.csv`, and `README.md`.
+          <pre><code id="ai-rebuild-prompt">Act as an expert senior front-end engineer and master mixologist for "BZ Speakesy" (Version 2.1, following strict sub-versioning 2.0 -> 2.1, 2.2; never auto-bumping to a new major release unless explicitly instructed). Build and maintain two self-contained HTML apps (`index.html` for the guest bar menu and `lab.html` for the internal cocktail development book), `bar_inventory_list.csv`, and `README.md`.
 
-1. BRANDING, FAVICON & DISCREET SECURITY: Use the bar name "BZ Speakesy", an inline SVG "BZ" monogram emblem, and an inline SVG cocktail coupe browser favicon. Hide "Lab" and "Docs" behind a single header lock/unlock icon checking `benzzers` (with zero UI hints). Keep the user on their current page when unlocking.
-2. COMPACT CONTROLS & LABELS: Use a minimal "X" icon button on all modals/popups, an ultra-compact 24px segmented `oz / ml` pill toggle (defaulting to `oz`), and sleek micro-badges for classifications, inspirations, and flavor tags. Do NOT display ingredient-count badges on menu popups or lab cards.
-3. GUEST MENU & MOBILE-OPTIMIZED ADMIN POPUP (`index.html`): Display 12 single-base cocktails (6 House Signatures + 6 Classic Adaptations; <=3-word names with "Silk" used only once). When unlocked as staff, clicking a cocktail opens a compact popup whose header keeps the cocktail name strictly on a single line on mobile alongside the compact `oz / ml` toggle and `X` close icon.
-4. THREE-TAB LAB (`lab.html`): (1) Cocktails (all-in-one drink hub containing each drink's Inspiration & Naming Story, Technical Concept, compact spec table with `oz / ml` toggle, preparation method, visual color/garnish specs, and collapsed AI image prompt), (2) Bar Inventory (interactive 52-item list with raw numeric count badges `0`, `1`, `2`, `3`), and (3) Concept & Stories (BZ Speakesy's overall bar concept, Wabi-Sabi & Ma design philosophy, mixology pillars, and Kumiko / Bar Bambi brand inspirations).
-5. DOCS (`README.md`): Compact export toolbar and static GitHub Release & Commit Logs through Version 2.0.</code></pre>
+1. BRANDING, FAVICON & DISCREET SECURITY: Use the bar name "BZ Speakesy", an inline SVG "BZ" monogram emblem, and an inline SVG cocktail coupe browser favicon. Hide "Lab" and "Docs" behind a single header lock/unlock icon checking `benzzers` (with zero UI hints). Keep the user on their current page when unlocking, with 100% identical menu item padding/margin and 16px input font size to prevent mobile layout shift or iOS auto-zoom.
+2. COMPACT CONTROLS & LABELS: Use a minimal "X" icon button on all modals/popups, embed the ultra-compact 24px segmented `oz / ml` pill toggle (defaulting to `oz`) directly inside the single-serving recipe table header, and use sleek micro-badges for classifications, inspirations, and flavor tags. Do NOT display ingredient-count badges on menu popups or lab cards.
+3. GUEST MENU & MOBILE-OPTIMIZED ADMIN POPUP (`index.html`): Streamline the Guest Menu header by promoting the eyebrow text ("BZ Speakesy · House Credo") to act as the primary `<h1>` title above the bar motto ("In Quiet Space, Every Botanical Speaks.") and epigraph (no redundant separate menu title). Display 12 single-base cocktails (6 House Signatures + 6 Classic Adaptations; <=3-word names with "Silk" used only once). When unlocked as staff, clicking a cocktail opens a compact popup whose header keeps the cocktail name strictly on a single line on mobile alongside the `X` close icon.
+4. THREE-TAB LAB (`lab.html`): (1) Cocktails (all-in-one drink hub containing each drink's Inspiration & Naming Story, Technical Concept, compact spec table with embedded `oz / ml` toggle, preparation method, visual color/garnish specs, and collapsed AI image prompt), (2) Bar Inventory (interactive 52-item list with raw numeric count badges `0`, `1`, `2`, `3`), and (3) Concept & Stories (editorial showcase with the BZ Speakesy motto and 3 sections: 01 / Stories, 02 / Concept, and 03 / References).
+5. DOCS (`README.md`): Compact export toolbar and static GitHub Release & Commit Logs through Version 2.1.</code></pre>
         </details>
 
         <details class="doc-accordion">
           <summary>
-            <span>Consolidated Inventory &amp; Cocktail Data Backup (JSON Source of Truth — v2.0)</span>
+            <span>Consolidated Inventory &amp; Cocktail Data Backup (JSON Source of Truth — v2.1)</span>
             <span class="badge">Expand / Export JSON</span>
           </summary>
           <div class="snippet-header">
-            <span>Complete JSON backup of Version 2.0, static release logs, 52 inventory items, and 12 cocktails:</span>
+            <span>Complete JSON backup of Version 2.1, static release logs, 52 inventory items, and 12 cocktails:</span>
             <button type="button" class="btn-ghost no-print" id="export-json-inline-btn">Export JSON Backup</button>
           </div>
           <pre><code id="readme-json-backup"></code></pre>
@@ -4688,6 +4734,10 @@
       }
 
       function closeAuthModal() {
+        var input = document.getElementById("auth-password-input");
+        if (input && typeof input.blur === "function") {
+          input.blur();
+        }
         var backdrop = document.getElementById("auth-modal-backdrop");
         if (backdrop) backdrop.classList.remove("open");
         pendingTargetId = null;
