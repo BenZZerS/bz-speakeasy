@@ -1,0 +1,4327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BZ's Speakeasy — Cocktail Menu &amp; Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Wabi-Sabi Inspired Warm Minimal Palette (Daytime / Light Mode) */
+      --bg: #F7F3EC;
+      --bg-elevated: #FBF9F5;
+      --bg-subtle: #EFEAE1;
+      --ink: #2B2B2B;
+      --ink-secondary: #5A554E;
+      --ink-muted: #787167;
+      --ink-discreet: #9E9689;
+      --border: #DFD8CC;
+      --border-hairline: rgba(43, 43, 43, 0.12);
+      --accent-indigo: #334756;     /* Muted Slate Indigo */
+      --accent-matcha: #5B6E58;     /* Muted Moss Green */
+      --accent-clay: #9E5A47;       /* Warm Terracotta Clay */
+      --seal-red: #B83B2B;          /* Warm Vermilion Seal Accent */
+      --wood-warm: #8C735B;         /* Warm Cedar Wood Tone */
+      --shadow-soft: 0 4px 20px rgba(43, 38, 33, 0.04);
+      --shadow-modal: 0 16px 48px rgba(27, 26, 24, 0.18);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
+      --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --tap-min: 44px;
+      --transition-slow: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    [data-theme="dark"] {
+      /* Sumi Charcoal Palette (Nighttime / Dark Mode) */
+      --bg: #1B1A18;
+      --bg-elevated: #24221F;
+      --bg-subtle: #2C2925;
+      --ink: #EDE8DF;
+      --ink-secondary: #C2B9AC;
+      --ink-muted: #948C80;
+      --ink-discreet: #6E675E;
+      --border: #38342F;
+      --border-hairline: rgba(237, 232, 223, 0.12);
+      --accent-indigo: #86A8C0;
+      --accent-matcha: #93AD8E;
+      --accent-clay: #D18A75;
+      --seal-red: #D95B4B;
+      --wood-warm: #B59B82;
+      --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.28);
+      --shadow-modal: 0 20px 56px rgba(0, 0, 0, 0.55);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+      transition: background-color var(--transition-slow), color var(--transition-slow);
+      background-image: radial-gradient(rgba(140, 115, 91, 0.045) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .fallback-banner {
+      display: none;
+      max-width: 960px;
+      margin: var(--space-4) auto;
+      padding: var(--space-4) var(--space-6);
+      background: var(--bg-elevated);
+      border: 1px solid var(--accent-clay);
+      border-radius: var(--radius-md);
+      color: var(--ink);
+      font-size: 1rem;
+    }
+
+    /* ==========================================================================
+       MINIMAL GUEST-FIRST HEADER, INLINE SVG LOGO & DISCREET STAFF NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border-hairline);
+      padding: var(--space-2) var(--space-4);
+      transition: background-color var(--transition-slow), border-color var(--transition-slow);
+    }
+
+    .site-header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      min-height: 48px;
+    }
+
+    .brand-link {
+      appearance: none;
+      background: transparent;
+      border: none;
+      padding: 4px 0;
+      min-height: var(--tap-min);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .brand-logo-svg {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      transition: transform 240ms ease;
+    }
+
+    .brand-link:hover .brand-logo-svg {
+      transform: scale(1.03);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .discreet-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .discreet-link {
+      appearance: none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--ink-discreet);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      min-height: var(--tap-min);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      opacity: 0.72;
+    }
+
+    .discreet-link:hover {
+      opacity: 1;
+      color: var(--ink-secondary);
+      background: var(--bg-subtle);
+    }
+
+    .discreet-link.active {
+      opacity: 1;
+      color: var(--ink);
+      border-color: var(--border);
+      background: var(--bg-subtle);
+      font-weight: 500;
+    }
+
+    .discreet-lock-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ink-discreet);
+      display: inline-block;
+    }
+
+    .discreet-link.unlocked .discreet-lock-dot {
+      background: var(--accent-matcha);
+    }
+
+    .discreet-divider {
+      color: var(--border);
+      font-size: 0.75rem;
+      user-select: none;
+    }
+
+    .theme-icon-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      width: var(--tap-min);
+      height: var(--tap-min);
+      min-width: var(--tap-min);
+      min-height: var(--tap-min);
+      padding: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
+      position: relative;
+    }
+
+    .theme-icon-btn:hover {
+      color: var(--ink);
+      border-color: var(--ink-muted);
+      background: var(--bg-subtle);
+    }
+
+    .theme-icon-btn svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .icon-sun {
+      display: none;
+    }
+    .icon-moon {
+      display: block;
+    }
+    [data-theme="dark"] .icon-sun {
+      display: block;
+    }
+    [data-theme="dark"] .icon-moon {
+      display: none;
+    }
+
+    .btn-ghost {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      min-height: var(--tap-min);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 200ms ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink-muted);
+      color: var(--ink);
+      background: var(--bg-subtle);
+    }
+
+    .btn-ghost:focus-visible,
+    .discreet-link:focus-visible,
+    .theme-icon-btn:focus-visible,
+    .brand-link:focus-visible,
+    .btn-primary:focus-visible,
+    .control-input:focus-visible,
+    .control-select:focus-visible {
+      outline: 2px solid var(--accent-indigo);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .site-header-inner {
+        gap: var(--space-1);
+      }
+      .brand-link span {
+        font-size: 1.05rem;
+      }
+      .discreet-link {
+        padding: 6px 8px;
+        font-size: 0.74rem;
+      }
+    }
+
+    /* ==========================================================================
+       STEALTH PASSWORD MODAL (No Passcode Hints Shown Anywhere in UI)
+       ========================================================================== */
+    .auth-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(20, 19, 17, 0.55);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+    }
+
+    .auth-modal-backdrop.open {
+      display: flex;
+      animation: gentleFade 220ms ease forwards;
+    }
+
+    .auth-modal {
+      width: 100%;
+      max-width: 390px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-modal);
+    }
+
+    .auth-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-3);
+    }
+
+    .auth-modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .auth-modal-desc {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+      margin: 0 0 var(--space-4);
+      line-height: 1.55;
+    }
+
+    .auth-error {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--seal-red);
+      margin: var(--space-2) 0 0;
+    }
+
+    .auth-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    /* View Panels */
+    .view-panel {
+      display: none;
+      animation: gentleFade 340ms ease forwards;
+    }
+
+    .view-panel.active {
+      display: block;
+    }
+
+    @keyframes gentleFade {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       VIEW 1: GUEST BAR MENU (index.html — BZ's Speakeasy)
+       Features Shortened Names (<=3 Words), Icon-Only Glass Badge & <=6 Ingredients
+       ========================================================================== */
+    .guest-menu-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4) var(--space-12);
+    }
+
+    .menu-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-8) var(--space-6);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      .guest-menu-wrapper {
+        padding: var(--space-12) var(--space-6) var(--space-16);
+      }
+      .menu-card {
+        padding: var(--space-12) var(--space-8);
+      }
+    }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .brand-emblem-large {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+    }
+
+    .menu-eyebrow {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      color: var(--ink-muted);
+      margin-bottom: var(--space-2);
+      text-transform: uppercase;
+    }
+
+    .menu-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin: 0 0 var(--space-3);
+      color: var(--ink);
+    }
+
+    .menu-epigraph {
+      font-size: 0.98rem;
+      color: var(--ink-secondary);
+      max-width: 430px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .menu-section {
+      margin-bottom: var(--space-12);
+    }
+
+    .menu-section:last-of-type {
+      margin-bottom: var(--space-6);
+    }
+
+    .menu-section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-2);
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-8);
+    }
+
+    .menu-section-title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .menu-section-tag {
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .guest-cocktail-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .guest-cocktail-item {
+      padding-bottom: var(--space-6);
+      border-bottom: 1px dashed var(--border-hairline);
+      transition: transform var(--transition-slow);
+    }
+
+    .guest-cocktail-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .guest-cocktail-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: 6px;
+    }
+
+    .guest-cocktail-name {
+      font-family: var(--font-serif);
+      font-size: 1.42rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+    }
+
+    /* Icon-Only Minimal Glass Badge on Guest Menu (No Text Label) */
+    .guest-glass-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      flex-shrink: 0;
+      transition: border-color 200ms ease, color 200ms ease;
+    }
+
+    .guest-glass-badge svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      opacity: 0.92;
+    }
+
+    .guest-cocktail-ingredients {
+      font-size: 0.96rem;
+      color: var(--ink-secondary);
+      margin: 4px 0 8px;
+      line-height: 1.6;
+    }
+
+    .guest-cocktail-flavor {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.06rem;
+      color: var(--accent-indigo);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .menu-footer {
+      margin-top: var(--space-12);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border-hairline);
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* ==========================================================================
+       VIEW 2: INTERNAL COCKTAIL DEVELOPMENT & RECIPE BOOK (lab.html)
+       ========================================================================== */
+    .lab-wrapper {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4) var(--space-12);
+    }
+
+    @media (min-width: 768px) {
+      .lab-wrapper {
+        padding: var(--space-8) var(--space-6) var(--space-16);
+      }
+    }
+
+    .lab-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-6);
+    }
+
+    .lab-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-clay);
+      margin: 0 0 var(--space-1);
+    }
+
+    .lab-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 4vw, 2.45rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 var(--space-2);
+      color: var(--ink);
+    }
+
+    .lab-subtitle {
+      font-size: 0.98rem;
+      color: var(--ink-secondary);
+      margin: 0;
+      max-width: 760px;
+    }
+
+    /* Reference Bar Style Comparison Banner */
+    .reference-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    @media (min-width: 768px) {
+      .reference-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .reference-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-6);
+    }
+
+    .reference-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 var(--space-2);
+      color: var(--ink);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .reference-tag {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+    }
+
+    .reference-card p {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+      margin: var(--space-2) 0 0;
+      line-height: 1.6;
+    }
+
+    /* Scalable Inventory Drawer with Cocktail Usage Tracking (All 52 Items) */
+    .inventory-details {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .inventory-details summary {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 1.15rem;
+      cursor: pointer;
+      color: var(--ink);
+      min-height: var(--tap-min);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      list-style: none;
+    }
+
+    .inventory-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-indicator {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-indigo);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+    }
+
+    .inventory-usage-overview {
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .inventory-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border-hairline);
+      font-size: 0.9rem;
+    }
+
+    .inventory-columns h4 {
+      font-family: var(--font-serif);
+      margin: 0 0 8px;
+      color: var(--accent-indigo);
+      font-size: 1.08rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 4px;
+    }
+
+    .inventory-item-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .inventory-item-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 0;
+      border-bottom: 1px dashed var(--border-hairline);
+    }
+
+    .inventory-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .inventory-item-name {
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .inventory-item-sub {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+      font-weight: 400;
+    }
+
+    .usage-pill {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 99px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--ink-muted);
+    }
+
+    .usage-pill.active-use {
+      background: rgba(91, 110, 88, 0.12);
+      border-color: rgba(91, 110, 88, 0.4);
+      color: var(--accent-matcha);
+    }
+
+    .usage-pill.high-use {
+      background: rgba(51, 71, 86, 0.12);
+      border-color: rgba(51, 71, 86, 0.45);
+      color: var(--accent-indigo);
+    }
+
+    /* Sticky & Collapsible Filter & Search Bar for Mobile & Desktop */
+    .lab-controls-sticky {
+      position: sticky;
+      top: 65px;
+      z-index: 150;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .lab-search-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .lab-search-wrap {
+      flex: 1 1 auto;
+    }
+
+    .mobile-filter-toggle {
+      display: inline-flex;
+    }
+
+    @media (min-width: 860px) {
+      .mobile-filter-toggle {
+        display: none;
+      }
+    }
+
+    .lab-filters-collapsible {
+      display: none;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .lab-filters-collapsible.open {
+      display: grid;
+    }
+
+    @media (min-width: 600px) {
+      .lab-filters-collapsible.open {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .lab-filters-collapsible {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-top: var(--space-3);
+        padding-top: var(--space-3);
+      }
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-label {
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .control-input,
+    .control-select {
+      width: 100%;
+      min-height: var(--tap-min);
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.96rem;
+      transition: border-color 200ms ease;
+    }
+
+    .control-input:focus,
+    .control-select:focus {
+      outline: none;
+      border-color: var(--accent-indigo);
+    }
+
+    .lab-status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+    }
+
+    /* Lab Recipe Cards */
+    .lab-recipes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .recipe-sheet {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-6) var(--space-4);
+      box-shadow: var(--shadow-soft);
+      page-break-after: always;
+      break-after: page;
+    }
+
+    @media (min-width: 640px) {
+      .recipe-sheet {
+        padding: var(--space-8);
+      }
+    }
+
+    .recipe-sheet-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: var(--space-6);
+    }
+
+    .recipe-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: var(--space-2);
+    }
+
+    .badge {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+    }
+
+    .badge-original {
+      border-color: rgba(91, 110, 88, 0.4);
+      color: var(--accent-matcha);
+      background: rgba(91, 110, 88, 0.09);
+    }
+
+    .badge-adaptation {
+      border-color: rgba(51, 71, 86, 0.4);
+      color: var(--accent-indigo);
+      background: rgba(51, 71, 86, 0.09);
+    }
+
+    .recipe-name {
+      font-family: var(--font-serif);
+      font-size: clamp(1.55rem, 3.5vw, 1.95rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .recipe-meta-quick {
+      text-align: left;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    @media (min-width: 720px) {
+      .recipe-meta-quick {
+        text-align: right;
+      }
+    }
+
+    .recipe-body-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    @media (min-width: 900px) {
+      .recipe-body-grid {
+        grid-template-columns: 1.25fr 1fr;
+        gap: var(--space-8);
+      }
+    }
+
+    .recipe-section-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin: 0 0 var(--space-3);
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .recipe-story {
+      font-size: 0.95rem;
+      color: var(--ink-secondary);
+      margin: 0 0 var(--space-4);
+      line-height: 1.62;
+    }
+
+    /* Dedicated Inspiration & Naming Story Callout in Lab */
+    .story-callout {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-clay);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-4);
+      font-size: 0.93rem;
+      color: var(--ink-secondary);
+      line-height: 1.6;
+    }
+
+    .story-callout strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.03rem;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    /* Prominent Mixing Technique Banner in Lab */
+    .technique-banner {
+      background: var(--bg-subtle);
+      border-left: 3px solid var(--accent-indigo);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 14px;
+      margin-bottom: var(--space-3);
+      font-size: 0.88rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .technique-banner strong {
+      color: var(--accent-indigo);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.8rem;
+    }
+
+    /* Spec Table (ml & US fl oz) */
+    .spec-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: var(--space-6);
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .spec-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spec-table th.num,
+    .spec-table td.num {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .spec-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--border-hairline);
+      color: var(--ink);
+      vertical-align: top;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .spec-note {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    .steps-list {
+      margin: 0 0 var(--space-6);
+      padding-left: 1.25rem;
+      font-size: 0.95rem;
+      color: var(--ink-secondary);
+      line-height: 1.6;
+    }
+
+    .steps-list li {
+      margin-bottom: 6px;
+    }
+
+    .sub-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-3);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .sub-box strong {
+      color: var(--ink);
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-serif);
+      font-size: 1.04rem;
+    }
+
+    /* Minimal Glassware Placeholder Illustration + Prompt Card */
+    .visual-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: var(--space-4);
+    }
+
+    .visual-placeholder {
+      aspect-ratio: 16 / 9;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-4);
+      text-align: center;
+      position: relative;
+    }
+
+    .visual-placeholder svg {
+      width: 64px;
+      height: 64px;
+      stroke: var(--ink-secondary);
+      stroke-width: 1.3;
+      fill: none;
+      margin-bottom: var(--space-2);
+      opacity: 0.85;
+    }
+
+    .visual-caption {
+      font-family: var(--font-serif);
+      font-size: 0.98rem;
+      color: var(--ink-muted);
+    }
+
+    .prompt-box {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .prompt-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-bottom: 6px;
+    }
+
+    .prompt-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-indigo);
+    }
+
+    .prompt-text {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--ink-secondary);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-2) var(--space-3);
+      margin: 0;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+
+    /* ==========================================================================
+       VIEW 3: COMPACT EXPORT TOOLBAR & COMPREHENSIVE README.md
+       ========================================================================== */
+    .docs-wrapper {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4) var(--space-12);
+    }
+
+    @media (min-width: 768px) {
+      .docs-wrapper {
+        padding: var(--space-8) var(--space-6) var(--space-16);
+      }
+    }
+
+    /* Compact Space-Efficient Export Toolbar */
+    .compact-export-bar {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .compact-export-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .compact-export-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .compact-export-sub {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      margin: 0;
+    }
+
+    .compact-export-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      appearance: none;
+      background: var(--accent-indigo);
+      color: #FFFFFF;
+      border: 1px solid transparent;
+      min-height: var(--tap-min);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 200ms ease;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .btn-primary code,
+    .btn-ghost code {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: rgba(255, 255, 255, 0.16);
+      color: inherit;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .btn-ghost code {
+      background: var(--bg-subtle);
+      color: var(--accent-indigo);
+    }
+
+    .readme-document {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-6) var(--space-4);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.96rem;
+    }
+
+    @media (min-width: 640px) {
+      .readme-document {
+        padding: var(--space-8);
+      }
+    }
+
+    .readme-document h1,
+    .readme-document h2,
+    .readme-document h3 {
+      font-family: var(--font-serif);
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .readme-document h1 {
+      font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: var(--space-3);
+      margin-top: 0;
+    }
+
+    .readme-document h2 {
+      font-size: 1.45rem;
+      margin-top: var(--space-8);
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 6px;
+    }
+
+    .readme-document h3 {
+      font-size: 1.18rem;
+      margin-top: var(--space-6);
+      margin-bottom: var(--space-2);
+    }
+
+    .doc-accordion {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-2) var(--space-4);
+      margin: var(--space-4) 0;
+    }
+
+    .doc-accordion summary {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      min-height: var(--tap-min);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      list-style: none;
+    }
+
+    .doc-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .snippet-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin: var(--space-3) 0 var(--space-2);
+    }
+
+    .readme-document pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.58;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-top: 0;
+    }
+
+    .readme-document code {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      background: var(--bg-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .readme-document pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    .schema-table-wrap {
+      overflow-x: auto;
+      margin: var(--space-4) 0;
+    }
+
+    .schema-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .schema-table th,
+    .schema-table td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .schema-table th {
+      background: var(--bg-subtle);
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-12) var(--space-6);
+      background: var(--bg-elevated);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      color: var(--ink-secondary);
+    }
+
+    /* ==========================================================================
+       PRINT STYLES (One Cocktail Per Page in Lab Mode; Clean Menu Card in Guest Mode)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #111111 !important;
+        background-image: none !important;
+      }
+      .site-header,
+      .auth-modal-backdrop,
+      .lab-controls-sticky,
+      .lab-status-bar,
+      .reference-grid,
+      .inventory-details,
+      .no-print {
+        display: none !important;
+      }
+      .lab-wrapper,
+      .guest-menu-wrapper {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .recipe-sheet {
+        box-shadow: none !important;
+        border: 1px solid #CCCCCC !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        margin-bottom: 0 !important;
+        padding: 20px !important;
+      }
+      .recipe-sheet:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       CENTRALIZED, MODULAR BAR INVENTORY MAPPING (52 ITEMS)
+       & PERFECTED 12-COCKTAIL MENU (v2.3 FINAL RELEASE)
+       - Naming Audit: "Silk" appears ONLY ONCE across all 12 drinks ("Silk & Saffron").
+         Renamed the other three to "Amalfi Gold Drop", "Rosepetal Clover Club",
+         and "Twilight Indigo Martini" (all <=3 words).
+       - Storytelling: Every cocktail includes a dedicated `inspirationStory` field.
+       - Single-Base & <=6 Ingredients: Every cocktail uses 1 primary base spirit
+         and 5 to 6 total ingredients.
+       ======================================================================== -->
+  <script>
+    const INVENTORY = {
+      items: [
+        // Gin (5)
+        {
+          id: "INV-01",
+          category: "Gin",
+          filterGroup: "Gin",
+          fullName: "Tanqueray No. Ten Gin",
+          simplifiedName: "Tanqueray No. Ten Gin",
+          status: "Active — Core Citrus & Chamomile Gin"
+        },
+        {
+          id: "INV-02",
+          category: "Gin",
+          filterGroup: "Gin",
+          fullName: "Malfy Gin con Limone",
+          simplifiedName: "Malfy Gin con Limone",
+          status: "Active — Amalfi Lemon Peel Gin"
+        },
+        {
+          id: "INV-03",
+          category: "Gin",
+          filterGroup: "Gin",
+          fullName: "Empress 1908 Indigo Gin",
+          simplifiedName: "Empress Indigo Gin",
+          status: "Active — Botanical Indigo Gin"
+        },
+        {
+          id: "INV-04",
+          category: "Gin",
+          filterGroup: "Gin",
+          fullName: "Empress 1908 Cucumber Lemon Gin",
+          simplifiedName: "Empress Cucumber Lemon Gin",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-05",
+          category: "Gin",
+          filterGroup: "Gin",
+          fullName: "Empress 1908 Elderflower Rose Gin",
+          simplifiedName: "Empress Elderflower Rose Gin",
+          status: "Active — Core Floral Gin"
+        },
+
+        // Vodka (2)
+        {
+          id: "INV-06",
+          category: "Vodka",
+          filterGroup: "Vodka",
+          fullName: "Ketel One Vodka",
+          simplifiedName: "Ketel One Vodka",
+          status: "Active — Core Wheat Vodka"
+        },
+        {
+          id: "INV-07",
+          category: "Vodka",
+          filterGroup: "Vodka",
+          fullName: "Absolut Citron Vodka",
+          simplifiedName: "Absolut Citron Vodka",
+          status: "Reserve — Available in Bar Stock"
+        },
+
+        // Agave Spirits (2)
+        {
+          id: "INV-08",
+          category: "Agave Spirits",
+          filterGroup: "Agave",
+          fullName: "Tequila Ocho Plata",
+          simplifiedName: "Tequila Ocho Plata",
+          status: "Active — Single-Estate Blanco Agave"
+        },
+        {
+          id: "INV-09",
+          category: "Agave Spirits",
+          filterGroup: "Agave",
+          fullName: "Del Maguey Vida Mezcal",
+          simplifiedName: "Del Maguey Vida Mezcal",
+          status: "Reserve — Available in Bar Stock"
+        },
+
+        // Rum (3)
+        {
+          id: "INV-10",
+          category: "Rum",
+          filterGroup: "Rum",
+          fullName: "Planteray 3 Stars Rum",
+          simplifiedName: "Planteray 3 Stars Rum",
+          status: "Active — Core Artisanal White Rum"
+        },
+        {
+          id: "INV-11",
+          category: "Rum",
+          filterGroup: "Rum",
+          fullName: "Smith & Cross Jamaica Rum",
+          simplifiedName: "Smith & Cross Jamaica Rum",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-12",
+          category: "Rum",
+          filterGroup: "Rum",
+          fullName: "Bacardí Gold Rum",
+          simplifiedName: "Bacardí Gold Rum",
+          status: "Reserve — Available in Bar Stock"
+        },
+
+        // Whiskey (3)
+        {
+          id: "INV-13",
+          category: "Whiskey",
+          filterGroup: "Bourbon",
+          fullName: "New Riff Straight Bourbon",
+          simplifiedName: "New Riff Bourbon",
+          status: "Active — Bottled-in-Bond Straight Bourbon"
+        },
+        {
+          id: "INV-14",
+          category: "Whiskey",
+          filterGroup: "Bourbon",
+          fullName: "Wild Turkey Rare Breed Bourbon",
+          simplifiedName: "Wild Turkey Rare Breed Bourbon",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-15",
+          category: "Whiskey",
+          filterGroup: "Bourbon",
+          fullName: "Rittenhouse Straight Rye Whiskey",
+          simplifiedName: "Rittenhouse Rye Whiskey",
+          status: "Active — 100-Proof Bottled-in-Bond Rye"
+        },
+
+        // Cognac & Shochu (2)
+        {
+          id: "INV-16",
+          category: "Cognac & Shochu",
+          filterGroup: "Cognac",
+          fullName: "Hennessy V.S Cognac",
+          simplifiedName: "Hennessy V.S Cognac",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-17",
+          category: "Cognac & Shochu",
+          filterGroup: "Shochu",
+          fullName: "iichiko Silhouette Barley Shochu",
+          simplifiedName: "iichiko Barley Shochu",
+          status: "Active — 25% ABV Japanese Mugi Shochu"
+        },
+
+        // Citrus Liqueurs (4)
+        {
+          id: "INV-18",
+          category: "Citrus Liqueurs",
+          filterGroup: "Citrus Liqueur",
+          fullName: "Suntory Kanade Yuzu Liqueur",
+          simplifiedName: "Yuzu Liqueur",
+          status: "Active — Core Japanese Citrus Liqueur"
+        },
+        {
+          id: "INV-19",
+          category: "Citrus Liqueurs",
+          filterGroup: "Citrus Liqueur",
+          fullName: "Bols Blue Curaçao",
+          simplifiedName: "Blue Curaçao",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-20",
+          category: "Citrus Liqueurs",
+          filterGroup: "Citrus Liqueur",
+          fullName: "Cointreau",
+          simplifiedName: "Cointreau",
+          status: "Active — Core Sweet & Bitter Orange Triple Sec"
+        },
+        {
+          id: "INV-21",
+          category: "Citrus Liqueurs",
+          filterGroup: "Citrus Liqueur",
+          fullName: "Pallini Limoncello",
+          simplifiedName: "Limoncello",
+          status: "Active — Sfusato Lemon Zest Liqueur"
+        },
+
+        // Floral, Fruit & Nut Liqueurs (4)
+        {
+          id: "INV-22",
+          category: "Floral, Fruit & Nut Liqueurs",
+          filterGroup: "Floral / Fruit Liqueur",
+          fullName: "St-Germain Elderflower Liqueur",
+          simplifiedName: "Elderflower Liqueur",
+          status: "Active — Core White Blossom Liqueur"
+        },
+        {
+          id: "INV-23",
+          category: "Floral, Fruit & Nut Liqueurs",
+          filterGroup: "Floral / Fruit Liqueur",
+          fullName: "Luxardo Maraschino Liqueur",
+          simplifiedName: "Maraschino Liqueur",
+          status: "Active — Distilled Marasca Cherry"
+        },
+        {
+          id: "INV-24",
+          category: "Floral, Fruit & Nut Liqueurs",
+          filterGroup: "Floral / Fruit Liqueur",
+          fullName: "Chambord Black Raspberry Liqueur",
+          simplifiedName: "Black Raspberry Liqueur",
+          status: "Active — Rich Bramble Berry Liqueur"
+        },
+        {
+          id: "INV-25",
+          category: "Floral, Fruit & Nut Liqueurs",
+          filterGroup: "Floral / Fruit Liqueur",
+          fullName: "Disaronno Amaretto",
+          simplifiedName: "Amaretto",
+          status: "Reserve — Available in Bar Stock"
+        },
+
+        // Herbal Liqueurs, Amari & Aperitifs (9)
+        {
+          id: "INV-26",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Suze",
+          simplifiedName: "Suze",
+          status: "Active — French Bittersweet Gentian"
+        },
+        {
+          id: "INV-27",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Liquore Strega",
+          simplifiedName: "Strega",
+          status: "Active — Saffron, Mint & Fennel"
+        },
+        {
+          id: "INV-28",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Averna Amaro Siciliano",
+          simplifiedName: "Averna Amaro",
+          status: "Active — Caramelized Citrus & Herbs"
+        },
+        {
+          id: "INV-29",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Dolin Génépy le Chamois",
+          simplifiedName: "Alpine herbal liqueur",
+          status: "Active — Savoy Mountain Artemisia"
+        },
+        {
+          id: "INV-30",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Aperol",
+          simplifiedName: "Aperol",
+          status: "Active — Low-Proof Venetian Aperitivo"
+        },
+        {
+          id: "INV-31",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Campari",
+          simplifiedName: "Campari",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-32",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Fernet-Branca",
+          simplifiedName: "Fernet-Branca",
+          status: "Reserve — Available in Bar Stock"
+        },
+        {
+          id: "INV-33",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Amaro Nonino Quintessentia",
+          simplifiedName: "Amaro Nonino",
+          status: "Active — Grappa-Based Burnt Orange Amaro"
+        },
+        {
+          id: "INV-34",
+          category: "Herbal Liqueurs, Amari & Aperitifs",
+          filterGroup: "Amaro / Aperitif",
+          fullName: "Boomsma Cloosterbitter",
+          simplifiedName: "Alpine herbal liqueur",
+          status: "Reserve — Available in Bar Stock"
+        },
+
+        // Vermouth & Wine Aperitifs (3)
+        {
+          id: "INV-35",
+          category: "Vermouth & Wine Aperitifs",
+          filterGroup: "Vermouth / Quinquina",
+          fullName: "Dolin Dry Vermouth",
+          simplifiedName: "Dry Vermouth",
+          status: "Active — Refrigerate After Opening"
+        },
+        {
+          id: "INV-36",
+          category: "Vermouth & Wine Aperitifs",
+          filterGroup: "Vermouth / Quinquina",
+          fullName: "Cocchi Vermouth di Torino",
+          simplifiedName: "Sweet Vermouth",
+          status: "Active — Refrigerate After Opening"
+        },
+        {
+          id: "INV-37",
+          category: "Vermouth & Wine Aperitifs",
+          filterGroup: "Vermouth / Quinquina",
+          fullName: "Cocchi Americano",
+          simplifiedName: "Aperitif Wine",
+          status: "Active — Refrigerate After Opening"
+        },
+
+        // Sparkling Wine (1)
+        {
+          id: "INV-38",
+          category: "Sparkling Wine",
+          filterGroup: "Sparkling",
+          fullName: "Prosecco",
+          simplifiedName: "Prosecco",
+          status: "Active — Chilled Sparkling Wine"
+        },
+
+        // Bitters (3)
+        {
+          id: "INV-39",
+          category: "Bitters",
+          filterGroup: "Bitters",
+          fullName: "Angostura Aromatic Bitters",
+          simplifiedName: "Aromatic Bitters",
+          status: "Active — Core Spice & Gentian Bitters"
+        },
+        {
+          id: "INV-40",
+          category: "Bitters",
+          filterGroup: "Bitters",
+          fullName: "Regans Orange Bitters",
+          simplifiedName: "Orange Bitters",
+          status: "Active — Cardamom & Bitter Orange Peel"
+        },
+        {
+          id: "INV-41",
+          category: "Bitters",
+          filterGroup: "Bitters",
+          fullName: "DASHFIRE Lavender Bitters",
+          simplifiedName: "Lavender Bitters",
+          status: "Active — Floral Botanical Bitters"
+        },
+
+        // Fresh Citrus & Fruit Perishables (5)
+        {
+          id: "INV-42",
+          category: "Fresh Citrus & Fruit",
+          filterGroup: "Perishables",
+          fullName: "Fresh Lemon (Juice, Peel & Wheel)",
+          matchTokens: ["fresh lemon juice", "expressed lemon peel", "fresh lemon wheel"],
+          simplifiedName: "Fresh Lemon",
+          status: "Active Perishable — Squeezed Daily & Whole Peels"
+        },
+        {
+          id: "INV-43",
+          category: "Fresh Citrus & Fruit",
+          filterGroup: "Perishables",
+          fullName: "Fresh Lime (Juice & Wheel)",
+          matchTokens: ["fresh lime juice", "fresh lime wheel"],
+          simplifiedName: "Fresh Lime",
+          status: "Active Perishable — Squeezed Daily & Wheels"
+        },
+        {
+          id: "INV-44",
+          category: "Fresh Citrus & Fruit",
+          filterGroup: "Perishables",
+          fullName: "Fresh Ruby Grapefruit (Juice & Peel)",
+          matchTokens: ["fresh ruby grapefruit juice", "expressed ruby grapefruit peel"],
+          simplifiedName: "Ruby Grapefruit",
+          status: "Active Perishable — Ruby Red Juice & Twists"
+        },
+        {
+          id: "INV-45",
+          category: "Fresh Citrus & Fruit",
+          filterGroup: "Perishables",
+          fullName: "Fresh Orange Peel",
+          matchTokens: ["expressed orange peel"],
+          simplifiedName: "Orange Peel",
+          status: "Active Perishable — Whole Valencia Oranges for Oils"
+        },
+        {
+          id: "INV-46",
+          category: "Fresh Citrus & Fruit",
+          filterGroup: "Perishables",
+          fullName: "Fresh Raspberries",
+          matchTokens: ["fresh raspberries"],
+          simplifiedName: "Fresh Raspberries",
+          status: "Active Perishable — Whole Berries for Muddling & Garnish"
+        },
+
+        // Fresh Herbs (2)
+        {
+          id: "INV-47",
+          category: "Fresh Herbs",
+          filterGroup: "Perishables",
+          fullName: "Fresh Mint Leaves",
+          matchTokens: ["fresh mint leaves", "fresh mint"],
+          simplifiedName: "Garden Mint",
+          status: "Active Perishable — Fresh Spearmint Crowns"
+        },
+        {
+          id: "INV-48",
+          category: "Fresh Herbs",
+          filterGroup: "Perishables",
+          fullName: "Fresh Sweet Basil",
+          matchTokens: ["fresh sweet basil", "fresh sweet basil leaves"],
+          simplifiedName: "Sweet Basil",
+          status: "Active Perishable — Fresh Genovese Basil Leaves"
+        },
+
+        // Mixers, House Syrups & Texture Modifiers (4)
+        {
+          id: "INV-49",
+          category: "Mixers, Syrups & Modifiers",
+          filterGroup: "Modifiers",
+          fullName: "Chilled Soda Water",
+          matchTokens: ["chilled soda water"],
+          simplifiedName: "Soda Water",
+          status: "Active Mixer — Chilled to 2°C (35°F)"
+        },
+        {
+          id: "INV-50",
+          category: "Mixers, Syrups & Modifiers",
+          filterGroup: "Modifiers",
+          fullName: "Simple Syrup (1:1)",
+          matchTokens: ["simple syrup (1:1)"],
+          simplifiedName: "Cane Syrup",
+          status: "Active House Syrup — Equal Parts Cane Sugar & Water"
+        },
+        {
+          id: "INV-51",
+          category: "Mixers, Syrups & Modifiers",
+          filterGroup: "Modifiers",
+          fullName: "Blossom Honey Syrup (2:1)",
+          matchTokens: ["blossom honey syrup (2:1)", "honey syrup (2:1)"],
+          simplifiedName: "Blossom Honey",
+          status: "Active House Syrup — 2 Parts Blossom Honey : 1 Part Water"
+        },
+        {
+          id: "INV-52",
+          category: "Mixers, Syrups & Modifiers",
+          filterGroup: "Modifiers",
+          fullName: "Fresh Egg White (or Aquafaba)",
+          matchTokens: ["fresh egg white (or aquafaba)"],
+          simplifiedName: "Silky Egg White",
+          status: "Active Texture Modifier — Egg White or Chickpea Aquafaba"
+        }
+      ],
+
+      getCategories: function () {
+        var map = {};
+        var order = [];
+        this.items.forEach(function (item) {
+          if (!map[item.category]) {
+            map[item.category] = [];
+            order.push(item.category);
+          }
+          map[item.category].push(item);
+        });
+        return order.map(function (catName) {
+          return { label: catName, items: map[catName] };
+        });
+      },
+
+      getTotalCount: function () {
+        return this.items.length;
+      },
+
+      itemMatchesCocktail: function (invItem, drink) {
+        if (!invItem || !drink) return false;
+        var labList = Array.isArray(drink.labIngredients) ? drink.labIngredients : [];
+        var specList = Array.isArray(drink.recipeSpec) ? drink.recipeSpec.map(function (r) { return r.item; }) : [];
+        var combined = labList.concat(specList).join(" | ").toLowerCase();
+
+        if (Array.isArray(invItem.matchTokens) && invItem.matchTokens.length > 0) {
+          for (var i = 0; i < invItem.matchTokens.length; i++) {
+            if (combined.indexOf(invItem.matchTokens[i].toLowerCase()) !== -1) {
+              return true;
+            }
+          }
+        }
+
+        var fullLower = invItem.fullName.toLowerCase();
+        var baseLower = invItem.fullName.replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
+        return combined.indexOf(fullLower) !== -1 || (baseLower.length > 3 && combined.indexOf(baseLower) !== -1);
+      },
+
+      getUsageCountForItem: function (invItem, cocktailsArray) {
+        if (!invItem || !Array.isArray(cocktailsArray)) return 0;
+        var self = this;
+        var count = 0;
+        cocktailsArray.forEach(function (drink) {
+          if (self.itemMatchesCocktail(invItem, drink)) {
+            count += 1;
+          }
+        });
+        return count;
+      },
+
+      getCocktailsUsingItem: function (invItem, cocktailsArray) {
+        if (!invItem || !Array.isArray(cocktailsArray)) return [];
+        var self = this;
+        var usedIn = [];
+        cocktailsArray.forEach(function (drink) {
+          if (self.itemMatchesCocktail(invItem, drink)) {
+            usedIn.push(drink.name);
+          }
+        });
+        return usedIn;
+      },
+
+      addItem: function (newItem) {
+        if (newItem && newItem.fullName) {
+          this.items.push({
+            id: newItem.id || ("INV-" + (this.items.length + 1)),
+            category: newItem.category || "Uncategorized",
+            filterGroup: newItem.filterGroup || "Other",
+            fullName: newItem.fullName,
+            simplifiedName: newItem.simplifiedName || newItem.fullName,
+            status: newItem.status || "Active"
+          });
+          return true;
+        }
+        return false;
+      }
+    };
+
+    const COCKTAILS = [
+      {
+        id: "komorebi-highball",
+        name: "Komorebi Highball",
+        classification: "Original Signature",
+        classicInspiration: null,
+        baseSpiritCategory: "Shochu",
+        flavorTags: ["Citrus", "Floral", "Crisp", "Effervescent"],
+        spiritIntensity: "Low (~10.5% ABV)",
+        glassType: "Highball Glass",
+        drinkColor: "Crystal-clear pale champagne gold with fine rising bubbles",
+        mixingTechnique: "Technique: Built & Brief Stir · Ice: Clear Highball Spear · Dilution: Light (~12% pre-chill, carbonation preserved)",
+        guestIngredients: [
+          "iichiko Barley Shochu",
+          "Yuzu Liqueur",
+          "Aperitif Wine",
+          "Fresh Lemon",
+          "Soda Water"
+        ],
+        labIngredients: [
+          "iichiko Silhouette Barley Shochu",
+          "Suntory Kanade Yuzu Liqueur",
+          "Cocchi Americano",
+          "Fresh Lemon Juice",
+          "Chilled Soda Water"
+        ],
+        guestFlavorLine: "Delicate yuzu blossom, crisp orchard fruit, and weightless effervescence.",
+        inspirationStory: "Named after 'komorebi'—the poetic Japanese word for sunlight filtering through forest leaves. We wanted an opening drink that captures Kumiko's serene highball culture: unblended 25% ABV iichiko Silhouette Barley Shochu acts as a weightless canvas, while Suntory Kanade Yuzu and Cocchi Americano cast bright, dappled beams of citrus and orchard fruit across crystal-clear ice.",
+        conceptStory: "Inspired by Kumiko's Japanese shochu highballs. A single unblended base of silky 25% ABV iichiko Silhouette Barley Shochu is lifted by aromatic Suntory Kanade Yuzu, crisp Cocchi Americano, and fresh lemon.",
+        balanceExplanation: "60 ml silky barley shochu is balanced by 22.5 ml Kanade Yuzu and 15 ml bitter-sweet Cocchi Americano against 10 ml fresh lemon juice and brisk soda carbonation (5 total ingredients).",
+        recipeSpec: [
+          { item: "iichiko Silhouette Barley Shochu", ml: 60, oz: "2.0 oz", note: "Single base: 25% ABV roasted barley shochu" },
+          { item: "Suntory Kanade Yuzu Liqueur", ml: 22.5, oz: "0.75 oz", note: "Aromatic Japanese yuzu sweetness" },
+          { item: "Cocchi Americano", ml: 15, oz: "0.5 oz", note: "Crisp quinquina bitter-sweet structure" },
+          { item: "Fresh Lemon Juice", ml: 10, oz: "0.33 oz", note: "Bright acid snap" },
+          { item: "Chilled Soda Water", ml: 90, oz: "3.0 oz", note: "Top gently along glass wall" }
+        ],
+        prepSteps: [
+          "Chill a thin-walled Highball glass in the freezer for 10 minutes.",
+          "Stir iichiko Shochu, Kanade Yuzu, Cocchi Americano, and lemon juice briefly over ice (5 seconds) to chill.",
+          "Strain over a clear ice spear in the chilled glass and top slowly with cold soda water.",
+          "Lift gently once with a barspoon and express a fresh lemon peel over top."
+        ],
+        houseComponents: {
+          required: "None — 5-ingredient direct build from chilled bottles.",
+          alternative: "Chill soda water to 2°C (35°F) to maximize bubble retention."
+        },
+        garnish: "Long vertical strip of fresh yellow lemon peel tucked cleanly beside the clear ice spear.",
+        presentation: {
+          glassware: "Highball Glass",
+          ice: "Single clear ice spear (or 3 large cubes)",
+          servingNotes: "Crystal-clear pale champagne gold; serve without a straw so expressed lemon and yuzu greet the nose on every sip."
+        },
+        imageUrl: "",
+        imagePrompt: "Minimalist editorial photograph of a crystal-clear highball cocktail in a thin-walled tall highball glass with a single clear ice spear, pale champagne-gold liquid with tiny bubbles, a neat strip of yellow lemon peel tucked inside, resting on a warm unfinished wood bar counter, soft natural light, wabi-sabi aesthetic."
+      },
+      {
+        id: "silk-and-saffron",
+        name: "Silk & Saffron",
+        classification: "Original Signature",
+        classicInspiration: null,
+        baseSpiritCategory: "Bourbon",
+        flavorTags: ["Citrus", "Floral", "Herbal", "Fruit"],
+        spiritIntensity: "Medium (~18.5% ABV)",
+        glassType: "Nick & Nora Glass",
+        drinkColor: "Luminous sunlit saffron-amber with a silky surface sheen",
+        mixingTechnique: "Technique: Shaking · Ice: Standard Whole Cubes · Dilution: ~24% (10–12 sec vigorous shake, double-strained)",
+        guestIngredients: [
+          "New Riff Bourbon",
+          "Amaro Nonino",
+          "Strega",
+          "Fresh Lemon",
+          "Blossom Honey",
+          "Orange Bitters"
+        ],
+        labIngredients: [
+          "New Riff Straight Bourbon",
+          "Amaro Nonino Quintessentia",
+          "Liquore Strega",
+          "Fresh Lemon Juice",
+          "Blossom Honey Syrup (2:1)",
+          "Regans Orange Bitters"
+        ],
+        guestFlavorLine: "Warm spiced honey, bright blood orange citrus, and golden saffron botanicals.",
+        inspirationStory: "Designed to bridge the warmth of American straight bourbon with the radiant, aromatic Italian liqueurs of Bar Bambi. The name 'Silk & Saffron' is the sole use of 'Silk' on our menu—honoring the literal golden saffron threads inside Liquore Strega and the velvety, silk-like mouthfeel created when 2:1 blossom honey syrup is shaken hard with burnt-orange Amaro Nonino.",
+        conceptStory: "A radiant bourbon sour built on a single base of bottled-in-bond New Riff Straight Bourbon, paired with burnt-orange Amaro Nonino, golden saffron-infused Liquore Strega, blossom honey, and fresh lemon.",
+        balanceExplanation: "45 ml 100-proof bourbon is balanced by 22.5 ml fresh lemon juice against 22.5 ml bittersweet Amaro Nonino, 7.5 ml Liquore Strega, and 7.5 ml blossom honey syrup, finished with spiced orange bitters (6 total ingredients).",
+        recipeSpec: [
+          { item: "New Riff Straight Bourbon", ml: 45, oz: "1.5 oz", note: "Single base: 100-proof bottled-in-bond bourbon" },
+          { item: "Amaro Nonino Quintessentia", ml: 22.5, oz: "0.75 oz", note: "Burnt orange & alpine bitter-sweetness" },
+          { item: "Liquore Strega", ml: 7.5, oz: "0.25 oz", note: "Golden saffron & mint high notes" },
+          { item: "Fresh Lemon Juice", ml: 22.5, oz: "0.75 oz", note: "Crisp citrus acid backbone" },
+          { item: "Blossom Honey Syrup (2:1)", ml: 7.5, oz: "0.25 oz", note: "Silky floral honey texture" },
+          { item: "Regans Orange Bitters", ml: 1, oz: "1 dash", note: "Spiced orange lift" }
+        ],
+        prepSteps: [
+          "Combine all 6 liquid ingredients in a shaker tin with standard ice cubes.",
+          "Shake vigorously for 10–12 seconds until the tin is well frosted.",
+          "Double-strain through a fine mesh strainer into a chilled Nick & Nora glass.",
+          "Express a fresh orange coin over the surface and float at the center."
+        ],
+        houseComponents: {
+          required: "2:1 Blossom Honey Syrup — Whisk 2 parts blossom honey with 1 part warm water until dissolved.",
+          alternative: "Zero-cook option: Use 10 ml standard 1:1 simple syrup."
+        },
+        garnish: "Neat circular orange peel coin floating at the center of the amber surface.",
+        presentation: {
+          glassware: "Nick & Nora Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Luminous sunlit saffron-amber hue with an inviting nose of orange oil, honey, and warm spice."
+        },
+        imageUrl: "",
+        imagePrompt: "A warm luminous saffron-amber cocktail served up in a slender stemmed Nick and Nora glass on a stone coaster, a single neat circular orange peel disc floating on top, warm cream plaster wall, soft afternoon light, wabi-sabi minimalism."
+      },
+      {
+        id: "evening-in-miyazaki",
+        name: "Evening in Miyazaki",
+        classification: "Original Signature",
+        classicInspiration: null,
+        baseSpiritCategory: "Agave",
+        flavorTags: ["Citrus", "Floral", "Herbal", "Crisp"],
+        spiritIntensity: "Medium (~17% ABV)",
+        glassType: "Double Rocks Glass",
+        drinkColor: "Translucent pale celadon-lime with emerald mint contrast",
+        mixingTechnique: "Technique: Shaking · Ice: Standard Cubes → Large Clear Block · Dilution: ~23% (8–10 sec brisk shake)",
+        guestIngredients: [
+          "Tequila Ocho Plata",
+          "Yuzu Liqueur",
+          "Cointreau",
+          "Fresh Lime",
+          "Cane Syrup",
+          "Garden Mint"
+        ],
+        labIngredients: [
+          "Tequila Ocho Plata",
+          "Suntory Kanade Yuzu Liqueur",
+          "Cointreau",
+          "Fresh Lime Juice",
+          "Simple Syrup (1:1)",
+          "Fresh Mint Leaves"
+        ],
+        guestFlavorLine: "Aromatic Japanese yuzu, bright orange blossom, and crisp highland agave over cool garden mint.",
+        inspirationStory: "Kyushu's sun-drenched Miyazaki prefecture is famous for its fragrant, coastal citrus groves. We imagined what an evening breeze through those groves would taste like when paired with single-estate Mexican highland blanco tequila: pure cooked agave, tart-sweet Japanese yuzu, crisp Cointreau orange blossom, and cool garden mint over hand-carved crystal ice.",
+        conceptStory: "Spotlights a single unblended base of single-estate highland Tequila Ocho Plata, brightened by Miyazaki-inspired Suntory Kanade Yuzu, crisp Cointreau orange peel, fresh lime, and cool garden mint.",
+        balanceExplanation: "45 ml blanco tequila is balanced by 22.5 ml fresh lime juice against 15 ml Kanade Yuzu, 15 ml Cointreau, and 5 ml simple syrup for a crowd-pleasing, zero-burn agave refresher (6 total ingredients).",
+        recipeSpec: [
+          { item: "Tequila Ocho Plata", ml: 45, oz: "1.5 oz", note: "Single base: crisp highland blanco agave" },
+          { item: "Suntory Kanade Yuzu Liqueur", ml: 15, oz: "0.5 oz", note: "Tart-sweet Japanese yuzu citrus" },
+          { item: "Cointreau", ml: 15, oz: "0.5 oz", note: "Sweet & bitter orange peel structure" },
+          { item: "Fresh Lime Juice", ml: 22.5, oz: "0.75 oz", note: "Bright acid backbone" },
+          { item: "Simple Syrup (1:1)", ml: 5, oz: "1 tsp", note: "Polishes lime & yuzu tartness" },
+          { item: "Fresh Mint Leaves", ml: 4, oz: "4 leaves", note: "Gently pressed in tin" }
+        ],
+        prepSteps: [
+          "Lightly press 4 mint leaves in the base of a shaker tin just to release oils without tearing.",
+          "Add Tequila Ocho Plata, Kanade Yuzu, Cointreau, lime juice, and simple syrup with standard ice; shake briskly for 8–10 seconds.",
+          "Double-strain over a single large clear ice block in a chilled Double Rocks glass."
+        ],
+        houseComponents: {
+          required: "1:1 Simple Syrup (5 ml) — Equal parts cane sugar and warm water.",
+          alternative: "Zero-prep option: Increase Kanade Yuzu Liqueur to 20 ml and omit simple syrup."
+        },
+        garnish: "Fresh garden mint crown clapped between palms and tucked beside the clear ice cube.",
+        presentation: {
+          glassware: "Double Rocks Glass",
+          ice: "Single large clear ice cube",
+          servingNotes: "Translucent pale celadon-lime with an immediate bouquet of fresh mint, yuzu zest, and sweet cooked agave."
+        },
+        imageUrl: "",
+        imagePrompt: "A pale celadon-lime translucent cocktail served over a single hand-cut clear ice block in a thin double rocks glass, garnished with a fresh green mint sprig resting on the ice, dark slate coaster on warm wood, soft natural side lighting."
+      },
+      {
+        id: "velvet-nocturne",
+        name: "Velvet Nocturne",
+        classification: "Original Signature",
+        classicInspiration: null,
+        baseSpiritCategory: "Whiskey",
+        flavorTags: ["Fruit", "Herbal", "Citrus", "Bittersweet"],
+        spiritIntensity: "Medium-High (~26% ABV)",
+        glassType: "Low Rocks Glass",
+        drinkColor: "Deep jewel-toned ruby mahogany with crystal clarity",
+        mixingTechnique: "Technique: Stirring · Ice: Solid Mixing Cubes → Large Clear Block · Dilution: ~20% (25–30 sec smooth stir)",
+        guestIngredients: [
+          "Rittenhouse Rye Whiskey",
+          "Sweet Vermouth",
+          "Averna Amaro",
+          "Black Raspberry Liqueur",
+          "Aromatic Bitters"
+        ],
+        labIngredients: [
+          "Rittenhouse Straight Rye Whiskey",
+          "Cocchi Vermouth di Torino",
+          "Averna Amaro Siciliano",
+          "Chambord Black Raspberry Liqueur",
+          "Angostura Aromatic Bitters"
+        ],
+        guestFlavorLine: "Dark bramble berry, toasted cacao, and caramelized Sicilian citrus over warm rye spice.",
+        inspirationStory: "Created to prove that a spirit-forward, late-night stirred whiskey cocktail can be just as plush and welcoming as a fruit sour. 'Nocturne' evokes a quiet midnight piano piece in a dimly lit Tokyo listening bar, while 'Velvet' reflects the rich, cocoa-and-bramble texture achieved by marrying Cocchi di Torino, Sicilian Averna, and Chambord over 100-proof Rittenhouse Rye.",
+        conceptStory: "A plush, approachable stirred nightcap built on a single base of 100-proof Rittenhouse Straight Rye Whiskey. Cocchi Vermouth di Torino and Averna Amaro create a velvety cocoa-citrus foundation accented by jewel-like Chambord Black Raspberry.",
+        balanceExplanation: "45 ml 100-proof rye whiskey is balanced by 22.5 ml Cocchi di Torino, 15 ml bittersweet Averna, and 7.5 ml Chambord Black Raspberry, tied together by 2 dashes of Angostura Aromatic Bitters (5 total ingredients).",
+        recipeSpec: [
+          { item: "Rittenhouse Straight Rye Whiskey", ml: 45, oz: "1.5 oz", note: "Single base: 100-proof bottled-in-bond rye" },
+          { item: "Cocchi Vermouth di Torino", ml: 22.5, oz: "0.75 oz", note: "Toasted cacao & sweet wine depth" },
+          { item: "Averna Amaro Siciliano", ml: 15, oz: "0.5 oz", note: "Caramelized citrus & herbal bittersweetness" },
+          { item: "Chambord Black Raspberry Liqueur", ml: 7.5, oz: "0.25 oz", note: "Plush dark bramble berry heart" },
+          { item: "Angostura Aromatic Bitters", ml: 2, oz: "2 dashes", note: "Warm baking spice structure" }
+        ],
+        prepSteps: [
+          "Combine all 5 ingredients in a mixing glass filled three-quarters with solid ice.",
+          "Stir smoothly for 25–30 seconds until silky and well chilled.",
+          "Strain over a single large clear cube in a chilled Low Rocks glass.",
+          "Express a wide strip of fresh orange peel over the surface and rest neatly along the inside rim."
+        ],
+        houseComponents: {
+          required: "None — 5-ingredient stirred build directly from inventory bottles.",
+          alternative: "Refrigerate Cocchi Vermouth di Torino after opening."
+        },
+        garnish: "Wide strip of expressed fresh orange peel resting cleanly against the clear ice cube.",
+        presentation: {
+          glassware: "Low Rocks Glass",
+          ice: "Single large clear ice cube",
+          servingNotes: "Deep jewel-toned ruby mahogany with an inviting aroma of orange oil, dark berry, and cocoa."
+        },
+        imageUrl: "",
+        imagePrompt: "A deep ruby-mahogany stirred cocktail over a single large clear ice block in a faceted low rocks glass on a walnut coaster, garnished with a neat orange peel strip, warm ambient bar lighting, uncluttered wabi-sabi composition."
+      },
+      {
+        id: "rosewater-canopy",
+        name: "Rosewater Canopy",
+        classification: "Original Signature",
+        classicInspiration: null,
+        baseSpiritCategory: "Gin",
+        flavorTags: ["Floral", "Citrus", "Herbal", "Fruit"],
+        spiritIntensity: "Medium (~16% ABV)",
+        glassType: "Coupe Glass",
+        drinkColor: "Radiant sunset rose-coral with a delicate white crema collar",
+        mixingTechnique: "Technique: Shaking · Ice: Standard Whole Cubes · Dilution: ~24% (10 sec brisk shake for grapefruit crema)",
+        guestIngredients: [
+          "Empress Elderflower Rose Gin",
+          "Aperol",
+          "Alpine herbal liqueur",
+          "Ruby Grapefruit",
+          "Fresh Lemon",
+          "Cane Syrup"
+        ],
+        labIngredients: [
+          "Empress 1908 Elderflower Rose Gin",
+          "Aperol",
+          "Dolin Génépy le Chamois",
+          "Fresh Ruby Grapefruit Juice",
+          "Fresh Lemon Juice",
+          "Simple Syrup (1:1)"
+        ],
+        guestFlavorLine: "Ruby grapefruit, wild rose petal, bittersweet orange, and crisp alpine herbs.",
+        inspirationStory: "Inspired by walking beneath an arched trellis of wild roses after a summer rain. We wanted to showcase the natural rose-petal and elderflower botanicals of Empress 1908 Rose Gin without letting the drink taste perfumey—using fresh ruby grapefruit juice and bittersweet Aperol to create a sunlit coral hue and Dolin Génépy for a crisp mountain-herb finish.",
+        conceptStory: "Showcases a single base of floral Empress 1908 Elderflower Rose Gin. Fresh ruby grapefruit and bittersweet Aperol give the drink a striking sunset-coral glow and juicy structure, lifted by mountain herbs from Dolin Génépy.",
+        balanceExplanation: "45 ml floral gin is balanced by 22.5 ml ruby grapefruit and 15 ml lemon juice against 15 ml bittersweet Aperol, 7.5 ml alpine Génépy, and 7.5 ml simple syrup for a bright, crowd-pleasing finish (6 total ingredients).",
+        recipeSpec: [
+          { item: "Empress 1908 Elderflower Rose Gin", ml: 45, oz: "1.5 oz", note: "Single base: rose petal & elderflower gin" },
+          { item: "Aperol", ml: 15, oz: "0.5 oz", note: "Soft bittersweet orange & coral hue" },
+          { item: "Dolin Génépy le Chamois", ml: 7.5, oz: "0.25 oz", note: "Crisp alpine herbal high note" },
+          { item: "Fresh Ruby Grapefruit Juice", ml: 22.5, oz: "0.75 oz", note: "Juicy citrus mid-palate" },
+          { item: "Fresh Lemon Juice", ml: 15, oz: "0.5 oz", note: "Bright acid snap" },
+          { item: "Simple Syrup (1:1)", ml: 7.5, oz: "0.25 oz", note: "Balances grapefruit pith" }
+        ],
+        prepSteps: [
+          "Add all 6 ingredients to a shaker tin with standard ice.",
+          "Shake briskly for 10 seconds to aerate the fresh grapefruit juice into a fine surface crema.",
+          "Double-strain into a chilled stemmed Coupe glass and express ruby grapefruit peel over top."
+        ],
+        houseComponents: {
+          required: "1:1 Simple Syrup — Dissolve equal parts white sugar and warm water.",
+          alternative: "Zero-prep option: Increase Aperol to 22.5 ml and omit simple syrup."
+        },
+        garnish: "Minimalist ribbon of pink grapefruit zest clipped neatly to the coupe rim.",
+        presentation: {
+          glassware: "Coupe Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Radiant sunset rose-coral hue with a fine frothy collar and fragrant rose-citrus nose."
+        },
+        imageUrl: "",
+        imagePrompt: "A radiant sunset rose-coral cocktail in a slender stemmed coupe glass with a fine frothy top and a minimalist pink grapefruit twist on the rim, warm cream paper backdrop, light oak table, calm bar lighting."
+      },
+      {
+        id: "amalfi-gold-drop",
+        name: "Amalfi Gold Drop",
+        classification: "Original Signature",
+        classicInspiration: null,
+        baseSpiritCategory: "Vodka",
+        flavorTags: ["Citrus", "Floral", "Crisp", "Silky"],
+        spiritIntensity: "Medium (~18% ABV)",
+        glassType: "Nick & Nora Glass",
+        drinkColor: "Luminous frosted lemon-gold with a crystalline sheen",
+        mixingTechnique: "Technique: Shaking · Ice: Standard Whole Cubes · Dilution: ~24% (10–12 sec hard shake, double-strained)",
+        guestIngredients: [
+          "Ketel One Vodka",
+          "Limoncello",
+          "Cointreau",
+          "Fresh Lemon",
+          "Orange Bitters"
+        ],
+        labIngredients: [
+          "Ketel One Vodka",
+          "Pallini Limoncello",
+          "Cointreau",
+          "Fresh Lemon Juice",
+          "Regans Orange Bitters"
+        ],
+        guestFlavorLine: "Bright Amalfi lemon zest, orange blossom triple sec, and crisp wheat vodka.",
+        inspirationStory: "A refined, adult reimagining of the Lemon Drop that trades sugar-rimmed glassware for Italian coastal elegance. Named 'Amalfi Gold Drop' for the sun-ripened Sfusato lemons used in Pallini Limoncello, it pairs a single unblended base of crisp Ketel One Vodka with Cointreau and Regans Orange Bitters for a luminous golden pour.",
+        conceptStory: "An ultra-clean, crowd-pleasing vodka signature built on a single base of crisp Ketel One Vodka, layered with Sfusato-peel Pallini Limoncello, Cointreau orange blossom, and fresh lemon juice.",
+        balanceExplanation: "45 ml Ketel One Vodka is balanced by 22.5 ml fresh lemon juice against 22.5 ml sweet Pallini Limoncello and 7.5 ml Cointreau, accented with 1 dash of Regans Orange Bitters (5 total ingredients).",
+        recipeSpec: [
+          { item: "Ketel One Vodka", ml: 45, oz: "1.5 oz", note: "Single base: crisp wheat vodka foundation" },
+          { item: "Pallini Limoncello", ml: 22.5, oz: "0.75 oz", note: "Amalfi Sfusato lemon zest sweetness" },
+          { item: "Cointreau", ml: 7.5, oz: "0.25 oz", note: "Crisp orange blossom depth" },
+          { item: "Fresh Lemon Juice", ml: 22.5, oz: "0.75 oz", note: "Bright acid backbone" },
+          { item: "Regans Orange Bitters", ml: 1, oz: "1 dash", note: "Cardamom & orange zest lift" }
+        ],
+        prepSteps: [
+          "Combine Ketel One Vodka, Pallini Limoncello, Cointreau, fresh lemon juice, and Regans Orange Bitters in a shaker tin.",
+          "Fill two-thirds with standard ice cubes and shake hard for 10–12 seconds until frost coats the tin.",
+          "Double-strain through a fine mesh strainer into a chilled Nick & Nora glass."
+        ],
+        houseComponents: {
+          required: "None — 5-ingredient build sweetened 100% by Limoncello and Cointreau.",
+          alternative: "Keep Ketel One Vodka and Pallini Limoncello chilled in advance for extra texture."
+        },
+        garnish: "Paper-thin fresh lemon wheel floating flat at the center.",
+        presentation: {
+          glassware: "Nick & Nora Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Luminous frosted lemon-gold appearance with a vibrant, refreshing Amalfi citrus nose."
+        },
+        imageUrl: "",
+        imagePrompt: "Minimalist editorial photograph of a luminous frosted lemon-gold vodka cocktail served up in a slender stemmed Nick and Nora glass, a single paper-thin yellow lemon wheel floating at the center, unglazed cream stoneware coaster on light wood, soft daylight."
+      },
+      {
+        id: "rosepetal-clover-club",
+        name: "Rosepetal Clover Club",
+        classification: "Classic Adaptation",
+        classicInspiration: "Clover Club",
+        baseSpiritCategory: "Gin",
+        flavorTags: ["Fruit", "Floral", "Citrus", "Silky"],
+        spiritIntensity: "Medium (~15% ABV)",
+        glassType: "Coupe Glass",
+        drinkColor: "Vibrant rose-crimson body crowned with a snow-white meringue cap",
+        mixingTechnique: "Technique: Dry Shake & Wet Shake · Ice: No Ice (10s) → Standard Cubes (12s) · Dilution: ~24% with meringue foam",
+        guestIngredients: [
+          "Empress Elderflower Rose Gin",
+          "Dry Vermouth",
+          "Black Raspberry Liqueur",
+          "Fresh Raspberries",
+          "Fresh Lemon",
+          "Silky Egg White"
+        ],
+        labIngredients: [
+          "Empress 1908 Elderflower Rose Gin",
+          "Dolin Dry Vermouth",
+          "Chambord Black Raspberry Liqueur",
+          "Fresh Lemon Juice",
+          "Fresh Raspberries",
+          "Fresh Egg White (or Aquafaba)"
+        ],
+        guestFlavorLine: "Plush crushed raspberry, fragrant rose petal, and bright lemon beneath a velvety foam crown.",
+        inspirationStory: "The original pre-Prohibition Clover Club hails from Philadelphia's Bellevue-Stratford Hotel, traditionally relying on cooked raspberry syrup and London Dry gin. We named our adaptation 'Rosepetal Clover Club' because swapping in Empress 1908 Elderflower Rose Gin and muddling fresh raspberries with Chambord infuses the classic crimson-and-white coupe with a natural rose-garden aroma and zero stovetop prep.",
+        conceptStory: "A streamlined 6-ingredient adaptation of the pre-Prohibition Clover Club. Using a single base of Empress 1908 Elderflower Rose Gin with crisp Dolin Dry Vermouth, muddled fresh raspberries, and Chambord delivers deep bramble berry flavor without stovetop syrup.",
+        balanceExplanation: "45 ml floral gin and 15 ml dry vermouth are balanced by 22.5 ml Chambord and 4 muddled raspberries against 22.5 ml fresh lemon juice, emulsified with egg white into a pillow-soft finish (6 total ingredients).",
+        recipeSpec: [
+          { item: "Empress 1908 Elderflower Rose Gin", ml: 45, oz: "1.5 oz", note: "Single base: rose petal & elderflower gin" },
+          { item: "Dolin Dry Vermouth", ml: 15, oz: "0.5 oz", note: "Classic Clover Club dry herbal structure" },
+          { item: "Chambord Black Raspberry Liqueur", ml: 22.5, oz: "0.75 oz", note: "Rich bramble berry sweetness (no syrup needed)" },
+          { item: "Fresh Lemon Juice", ml: 22.5, oz: "0.75 oz", note: "Crisp citrus acid backbone" },
+          { item: "Fresh Raspberries", ml: 4, oz: "4 berries", note: "Muddled in shaker tin for fresh fruit brightness" },
+          { item: "Fresh Egg White (or Aquafaba)", ml: 22.5, oz: "0.75 oz", note: "Velvety snow-white meringue crown" }
+        ],
+        prepSteps: [
+          "Muddle 4 fresh raspberries with Chambord and lemon juice in the base of the shaker tin.",
+          "Add Empress Elderflower Rose Gin, Dolin Dry Vermouth, and egg white; dry shake (no ice) vigorously for 10 seconds.",
+          "Add standard ice cubes and shake hard for 12 seconds until well chilled.",
+          "Double-strain through a fine mesh strainer into a chilled Coupe glass."
+        ],
+        houseComponents: {
+          required: "None — muddled fresh raspberries + Chambord eliminate stovetop berry syrup.",
+          alternative: "Vegan option: Substitute 22.5 ml (0.75 oz) unsalted chickpea aquafaba."
+        },
+        garnish: "Single pristine fresh raspberry on a slender bamboo pick resting across the rim.",
+        presentation: {
+          glassware: "Coupe Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Striking two-tone contrast: deep rose-crimson liquid beneath a dense snow-white foam cap."
+        },
+        imageUrl: "",
+        imagePrompt: "Minimalist editorial photograph of a Clover Club cocktail in a stemmed coupe glass, deep rose-crimson liquid beneath a smooth snow-white meringue foam cap, garnished with one fresh raspberry on a bamboo pick, cedar counter, soft diffused light."
+      },
+      {
+        id: "yuzu-blossom-hemingway",
+        name: "Yuzu Blossom Hemingway",
+        classification: "Classic Adaptation",
+        classicInspiration: "Hemingway Daiquiri",
+        baseSpiritCategory: "Rum",
+        flavorTags: ["Citrus", "Floral", "Fruit", "Crisp"],
+        spiritIntensity: "Medium-High (~18% ABV)",
+        glassType: "Coupe Glass",
+        drinkColor: "Luminous pale coral-blossom gold with a fine icy froth",
+        mixingTechnique: "Technique: Shaking · Ice: Standard Whole Cubes · Dilution: ~25% (10–12 sec brisk shake, double-strained)",
+        guestIngredients: [
+          "Planteray 3 Stars Rum",
+          "Yuzu Liqueur",
+          "Elderflower Liqueur",
+          "Maraschino Liqueur",
+          "Ruby Grapefruit",
+          "Fresh Lime"
+        ],
+        labIngredients: [
+          "Planteray 3 Stars Rum",
+          "Suntory Kanade Yuzu Liqueur",
+          "St-Germain Elderflower Liqueur",
+          "Luxardo Maraschino Liqueur",
+          "Fresh Ruby Grapefruit Juice",
+          "Fresh Lime Juice"
+        ],
+        guestFlavorLine: "Bright Japanese yuzu, ruby grapefruit, and white elderflower over crisp artisanal white rum.",
+        inspirationStory: "Ernest Hemingway's Havana Papa Doble is iconic but notoriously tart and austere when sweetened solely with dry Maraschino. We named this adaptation 'Yuzu Blossom Hemingway' because weaving Suntory Kanade Yuzu and St-Germain Elderflower Blossom into a single base of crisp Planteray 3 Stars Rum transforms the classic into a fragrant, sunlit daiquiri with a plush floral-citrus mid-palate.",
+        conceptStory: "A fragrant, crowd-pleasing evolution of the Hemingway Daiquiri built on a single base of crisp Planteray 3 Stars Rum. Suntory Kanade Yuzu and St-Germain Elderflower Liqueur soften Luxardo Maraschino's dry edge with pure citrus-blossom lift.",
+        balanceExplanation: "52.5 ml Planteray 3 Stars Rum is balanced by 15 ml tart lime and 22.5 ml ruby grapefruit juice against 15 ml Kanade Yuzu, 7.5 ml St-Germain, and 7.5 ml dry Maraschino (6 total ingredients).",
+        recipeSpec: [
+          { item: "Planteray 3 Stars Rum", ml: 52.5, oz: "1.75 oz", note: "Single base: crisp artisanal white rum" },
+          { item: "Suntory Kanade Yuzu Liqueur", ml: 15, oz: "0.5 oz", note: "Vibrant Japanese yuzu citrus" },
+          { item: "St-Germain Elderflower Liqueur", ml: 7.5, oz: "0.25 oz", note: "White blossom roundness" },
+          { item: "Luxardo Maraschino Liqueur", ml: 7.5, oz: "0.25 oz", note: "Signature Hemingway cherry-almond note" },
+          { item: "Fresh Ruby Grapefruit Juice", ml: 22.5, oz: "0.75 oz", note: "Juicy ruby citrus mid-palate" },
+          { item: "Fresh Lime Juice", ml: 15, oz: "0.5 oz", note: "Crisp acid snap" }
+        ],
+        prepSteps: [
+          "Combine all 6 ingredients in a shaker tin filled two-thirds with standard ice.",
+          "Shake briskly for 10–12 seconds until frosty and lightly aerated.",
+          "Double-strain into a chilled stemmed Coupe glass."
+        ],
+        houseComponents: {
+          required: "None — 6-ingredient build from inventory liqueurs and fresh-squeezed citrus.",
+          alternative: "Squeeze ruby grapefruit juice fresh to order for the brightest coral-gold froth."
+        },
+        garnish: "Paper-thin fresh lime wheel floating effortlessly on the frothy surface.",
+        presentation: {
+          glassware: "Coupe Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Luminous pale coral-blossom gold with an immediate bouquet of yuzu, pink grapefruit, and white flowers."
+        },
+        imageUrl: "",
+        imagePrompt: "Minimalist editorial photograph of a Hemingway daiquiri in a delicate stemmed coupe glass, luminous pale coral-gold liquid with a fine icy froth and a paper-thin lime wheel floating on top, unglazed ceramic coaster on warm wood."
+      },
+      {
+        id: "alpine-orchard-gimlet",
+        name: "Alpine Orchard Gimlet",
+        classification: "Classic Adaptation",
+        classicInspiration: "Gin Gimlet",
+        baseSpiritCategory: "Gin",
+        flavorTags: ["Citrus", "Herbal", "Floral", "Crisp"],
+        spiritIntensity: "Medium-High (~18.5% ABV)",
+        glassType: "Nick & Nora Glass",
+        drinkColor: "Crystalline pale emerald-jade with a jewel-like glow",
+        mixingTechnique: "Technique: Shaking (with Fresh Herb) · Ice: Standard Whole Cubes · Dilution: ~24% (10 sec brisk shake, fine-strained)",
+        guestIngredients: [
+          "Tanqueray No. Ten Gin",
+          "Alpine herbal liqueur",
+          "Elderflower Liqueur",
+          "Fresh Lime",
+          "Cane Syrup",
+          "Sweet Basil"
+        ],
+        labIngredients: [
+          "Tanqueray No. Ten Gin",
+          "Dolin Génépy le Chamois",
+          "St-Germain Elderflower Liqueur",
+          "Fresh Lime Juice",
+          "Simple Syrup (1:1)",
+          "Fresh Sweet Basil"
+        ],
+        guestFlavorLine: "Crystalline lime, sweet basil, pear-like elderflower, and delicate alpine botanicals.",
+        inspirationStory: "Inspired by Bar Bambi's high-aroma herbal sours, we wanted to elevate the two-ingredient naval Gin Gimlet into a multi-layered botanical experience. 'Alpine' nods to Savoy mountain Dolin Génépy le Chamois, while 'Orchard' reflects the ripe pear-and-white-blossom notes of St-Germain shaken with whole-citrus Tanqueray No. Ten and fresh sweet basil.",
+        conceptStory: "Transforms the classic Gin Gimlet into a vibrant botanical sour using a single base of whole-citrus Tanqueray No. Ten Gin, layered with pear-like St-Germain, alpine Dolin Génépy, and fresh sweet basil shaken with ice.",
+        balanceExplanation: "45 ml Tanqueray No. Ten Gin is balanced by 22.5 ml fresh lime juice against 15 ml St-Germain, 10 ml Dolin Génépy, and 7.5 ml simple syrup in textbook sour harmony (6 total ingredients).",
+        recipeSpec: [
+          { item: "Tanqueray No. Ten Gin", ml: 45, oz: "1.5 oz", note: "Single base: whole-citrus & chamomile gin" },
+          { item: "Dolin Génépy le Chamois", ml: 10, oz: "0.33 oz", note: "Alpine artemisia herbal complexity" },
+          { item: "St-Germain Elderflower Liqueur", ml: 15, oz: "0.5 oz", note: "Orchard pear & white blossom" },
+          { item: "Fresh Lime Juice", ml: 22.5, oz: "0.75 oz", note: "Bright Gimlet acidity" },
+          { item: "Simple Syrup (1:1)", ml: 7.5, oz: "0.25 oz", note: "Balances lime tartness" },
+          { item: "Fresh Sweet Basil Leaves", ml: 3, oz: "3 leaves", note: "Clapped and shaken with ice" }
+        ],
+        prepSteps: [
+          "Clap 3 fresh sweet basil leaves and drop into a shaker tin with all liquid ingredients.",
+          "Add standard ice cubes and shake briskly for 10 seconds.",
+          "Double-strain through a fine mesh strainer into a chilled Nick & Nora glass."
+        ],
+        houseComponents: {
+          required: "1:1 Simple Syrup (7.5 ml).",
+          alternative: "Zero-prep option: Increase St-Germain to 22.5 ml and omit simple syrup."
+        },
+        garnish: "One small, pristine sweet basil leaf floating flat at the center.",
+        presentation: {
+          glassware: "Nick & Nora Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Crystalline pale emerald-jade liquid with an uplifting nose of sweet basil, lime blossom, and mountain herbs."
+        },
+        imageUrl: "",
+        imagePrompt: "A crystalline pale jade-green gimlet in a slender Nick and Nora glass, a single small fresh green basil leaf floating in the center, unglazed stoneware coaster, minimalist bar interior, soft daylight."
+      },
+      {
+        id: "golden-hour-spritz",
+        name: "Golden Hour Spritz",
+        classification: "Classic Adaptation",
+        classicInspiration: "Hugo & Venetian Spritz",
+        baseSpiritCategory: "Sparkling Wine & Aperitif",
+        flavorTags: ["Citrus", "Floral", "Effervescent", "Herbal"],
+        spiritIntensity: "Low (~10.5% ABV)",
+        glassType: "Stemmed Wine Glass",
+        drinkColor: "Radiant golden sunset-peach with lively effervescence",
+        mixingTechnique: "Technique: Built in Glass & Gently Folded · Ice: Large Standard Cubes · Dilution: Minimal (~10% over ice)",
+        guestIngredients: [
+          "Prosecco",
+          "Aperitif Wine",
+          "Aperol",
+          "Elderflower Liqueur",
+          "Soda Water",
+          "Garden Mint"
+        ],
+        labIngredients: [
+          "Prosecco",
+          "Cocchi Americano",
+          "Aperol",
+          "St-Germain Elderflower Liqueur",
+          "Chilled Soda Water",
+          "Fresh Mint"
+        ],
+        guestFlavorLine: "Crisp Prosecco, white elderflower, and bittersweet orange over fresh garden mint.",
+        inspirationStory: "Named for the warm, amber-peach light just before sunset when aperitivo hour begins. By uniting the elderflower-and-mint Northern Italian Hugo Spritz with the bittersweet Venetian Aperol Spritz—and anchoring both with dry Cocchi Americano—this drink glows like late-afternoon sunlight in a stemmed wine glass.",
+        conceptStory: "Bridges the floral Northern Italian Hugo Spritz and bittersweet Venetian Spritz in a clean 6-ingredient build. Cocchi Americano provides a crisp quinquina backbone so St-Germain and Aperol finish refreshing rather than sweet.",
+        balanceExplanation: "22.5 ml dry Cocchi Americano and 22.5 ml bittersweet Aperol balance 15 ml floral St-Germain, lengthened with 75 ml chilled Prosecco and 30 ml soda water over ice (6 total ingredients).",
+        recipeSpec: [
+          { item: "Prosecco", ml: 75, oz: "2.5 oz", note: "Single sparkling base: chilled dry Prosecco" },
+          { item: "Cocchi Americano", ml: 22.5, oz: "0.75 oz", note: "Crisp quinquina wine backbone" },
+          { item: "Aperol", ml: 22.5, oz: "0.75 oz", note: "Bittersweet orange & golden-peach glow" },
+          { item: "St-Germain Elderflower Liqueur", ml: 15, oz: "0.5 oz", note: "Hugo Spritz white blossom aroma" },
+          { item: "Chilled Soda Water", ml: 30, oz: "1.0 oz", note: "Brisk effervescent lift" },
+          { item: "Fresh Mint Leaves", ml: 1, oz: "1 sprig", note: "Clapped aromatic garnish" }
+        ],
+        prepSteps: [
+          "Fill a large Stemmed Wine glass generously with large ice cubes.",
+          "Add Cocchi Americano, Aperol, and St-Germain Elderflower Liqueur.",
+          "Top with chilled Prosecco and soda water; fold gently twice with a barspoon.",
+          "Clap a fresh mint sprig between your palms and tuck beside the ice."
+        ],
+        houseComponents: {
+          required: "None — 6-ingredient build directly in the glass.",
+          alternative: "Chill Prosecco and soda water to 3°C (38°F) before service."
+        },
+        garnish: "Fresh green mint sprig tucked beside the ice cubes.",
+        presentation: {
+          glassware: "Stemmed Wine Glass",
+          ice: "Large standard ice cubes",
+          servingNotes: "Radiant golden sunset-peach sparkle with low alcohol intensity and high aromatic appeal."
+        },
+        imageUrl: "",
+        imagePrompt: "A radiant peach-gold spritz cocktail in a stemmed white wine glass filled with clear ice cubes, garnished with a fresh green mint sprig, warm linen mat on wood table, golden hour light."
+      },
+      {
+        id: "sunlit-white-negroni",
+        name: "Sunlit White Negroni",
+        classification: "Classic Adaptation",
+        classicInspiration: "White Negroni",
+        baseSpiritCategory: "Gin",
+        flavorTags: ["Citrus", "Floral", "Herbal", "Bittersweet"],
+        spiritIntensity: "Medium-High (~24% ABV)",
+        glassType: "Low Rocks Glass",
+        drinkColor: "Brilliant sunlit daffodil-yellow over crystal-clear ice",
+        mixingTechnique: "Technique: Stirring · Ice: Solid Mixing Cubes → Large Clear Block · Dilution: ~20% (25 sec smooth stir)",
+        guestIngredients: [
+          "Malfy Gin con Limone",
+          "Aperitif Wine",
+          "Suze",
+          "Maraschino Liqueur",
+          "Ruby Grapefruit"
+        ],
+        labIngredients: [
+          "Malfy Gin con Limone",
+          "Cocchi Americano",
+          "Suze",
+          "Luxardo Maraschino Liqueur",
+          "Expressed Ruby Grapefruit Peel"
+        ],
+        guestFlavorLine: "Amalfi lemon gin, orchard aperitif wine, and golden gentian softened by maraschino cherry.",
+        inspirationStory: "Wayne Collins' 2001 White Negroni is a modern classic, but full-measure gentian root can feel austere to many guests. We named this adaptation 'Sunlit White Negroni' because using Italian lemon-peel Malfy Gin con Limone as the single base and rounding Suze with Cocchi Americano and a 7.5 ml touch of Luxardo Maraschino turns the drink into a radiant, daffodil-gold gem.",
+        conceptStory: "A poised, crowd-pleasing White Negroni built on a single base of Italian lemon-peel Malfy Gin con Limone. Pairing Suze and Cocchi Americano with a 7.5 ml touch of Luxardo Maraschino turns assertive gentian root into a luminous citrus-bittersweet gem.",
+        balanceExplanation: "45 ml Malfy Gin con Limone and 30 ml Cocchi Americano are balanced by 15 ml bitter Suze and 7.5 ml sweet-dry Luxardo Maraschino, finished with expressed ruby grapefruit oils (5 total ingredients).",
+        recipeSpec: [
+          { item: "Malfy Gin con Limone", ml: 45, oz: "1.5 oz", note: "Single base: Amalfi lemon-peel gin" },
+          { item: "Cocchi Americano", ml: 30, oz: "1.0 oz", note: "Orchard-fruit quinquina body" },
+          { item: "Suze", ml: 15, oz: "0.5 oz", note: "Golden gentian bittersweet backbone" },
+          { item: "Luxardo Maraschino Liqueur", ml: 7.5, oz: "0.25 oz", note: "Rounds gentian bitterness with cherry-almond silk" },
+          { item: "Expressed Ruby Grapefruit Peel", ml: 1, oz: "1 wide strip", note: "Essential citrus oil top note" }
+        ],
+        prepSteps: [
+          "Combine Malfy Gin con Limone, Cocchi Americano, Suze, and Luxardo Maraschino in a mixing glass with cold, solid ice cubes.",
+          "Stir smoothly for 25 seconds until chilled and velvety.",
+          "Strain over a single large clear ice block in a chilled Low Rocks glass.",
+          "Express a wide strip of ruby grapefruit peel over top and rest neatly inside the glass."
+        ],
+        houseComponents: {
+          required: "None — 5-ingredient stirred build from inventory bottles.",
+          alternative: "For guests who prefer firmer bitterness, increase Suze to 22.5 ml."
+        },
+        garnish: "Wide, neatly trimmed strip of ruby grapefruit peel resting against the clear ice block.",
+        presentation: {
+          glassware: "Low Rocks Glass",
+          ice: "Single large clear ice block",
+          servingNotes: "Brilliant sunlit daffodil-yellow clarity over crystal ice with a fragrant lemon-and-grapefruit nose."
+        },
+        imageUrl: "",
+        imagePrompt: "A crystal-clear golden-yellow White Negroni over a single hand-carved square clear ice block in a low rocks glass, garnished with a neat strip of pink grapefruit peel, warm travertine stone surface, soft natural light."
+      },
+      {
+        id: "twilight-indigo-martini",
+        name: "Twilight Indigo Martini",
+        classification: "Classic Adaptation",
+        classicInspiration: "Classic Dry Martini",
+        baseSpiritCategory: "Gin",
+        flavorTags: ["Floral", "Citrus", "Herbal", "Crisp"],
+        spiritIntensity: "Medium-High (~25% ABV)",
+        glassType: "Nick & Nora Glass",
+        drinkColor: "Translucent twilight-indigo and soft amethyst shimmer",
+        mixingTechnique: "Technique: Stirring · Ice: Solid Mixing Cubes (Served Up) · Dilution: ~22% (30 sec silky stir)",
+        guestIngredients: [
+          "Empress Indigo Gin",
+          "Dry Vermouth",
+          "Cointreau",
+          "Lavender Bitters",
+          "Fresh Lemon"
+        ],
+        labIngredients: [
+          "Empress 1908 Indigo Gin",
+          "Dolin Dry Vermouth",
+          "Cointreau",
+          "DASHFIRE Lavender Bitters",
+          "Expressed Lemon Peel"
+        ],
+        guestFlavorLine: "Crystalline indigo botanical gin, alpine dry vermouth, and a whisper of orange blossom and lavender.",
+        inspirationStory: "Inspired by the deep indigo sky over Tokyo just after dusk. Using a single unblended base of Empress 1908 Indigo Gin stirred with alpine Dolin Dry Vermouth, a 5 ml barspoon of Cointreau, and two drops of DASHFIRE Lavender Bitters, the cocktail naturally shifts from deep indigo to a soft twilight-amethyst shimmer while softening the classic Martini's sharp edge.",
+        conceptStory: "A visually captivating, modern Dry Martini built on a single base of botanical Empress 1908 Indigo Gin. A generous 2:1 ratio with crisp Dolin Dry Vermouth, a 5 ml barspoon of Cointreau, and 2 drops of DASHFIRE Lavender Bitters softens the classic's bite while preserving bone-dry elegance.",
+        balanceExplanation: "52.5 ml Empress Indigo Gin is structured by 22.5 ml dry vermouth and rounded by 5 ml Cointreau and lavender bitters so the alcohol feels seamless and aromatic rather than harsh (5 total ingredients).",
+        recipeSpec: [
+          { item: "Empress 1908 Indigo Gin", ml: 52.5, oz: "1.75 oz", note: "Single base: juniper, grapefruit peel & butterfly pea gin" },
+          { item: "Dolin Dry Vermouth", ml: 22.5, oz: "0.75 oz", note: "Alpine herbal dry vermouth structure" },
+          { item: "Cointreau", ml: 5, oz: "1 tsp", note: "Subtle orange-blossom roundness" },
+          { item: "DASHFIRE Lavender Bitters", ml: 1, oz: "2 drops", note: "Aromatic lavender top note" },
+          { item: "Expressed Lemon Peel", ml: 1, oz: "1 twist", note: "Bright lemon oil contrast" }
+        ],
+        prepSteps: [
+          "Chill a stemmed Nick & Nora glass in the freezer for at least 10 minutes.",
+          "Combine Empress 1908 Indigo Gin, Dolin Dry Vermouth, Cointreau, and DASHFIRE Lavender Bitters in a mixing glass.",
+          "Fill three-quarters with cold, solid ice cubes and stir smoothly for 30 seconds until frigid and silky.",
+          "Strain into the chilled Nick & Nora glass, express a fresh lemon twist over the surface, and drape neatly on the rim."
+        ],
+        houseComponents: {
+          required: "None — 5-ingredient stirred build from chilled inventory bottles.",
+          alternative: "Keep Dolin Dry Vermouth refrigerated at 3°C (38°F) for maximum crispness."
+        },
+        garnish: "Slender yellow lemon twist draped on the rim, contrasting vividly against the twilight-indigo liquid.",
+        presentation: {
+          glassware: "Nick & Nora Glass",
+          ice: "Served up (no ice)",
+          servingNotes: "Striking twilight-indigo and soft amethyst clarity with a delicate bouquet of lemon oil, orange blossom, and lavender."
+        },
+        imageUrl: "",
+        imagePrompt: "Minimalist editorial photograph of a translucent twilight-indigo Martini served up in a chilled slender Nick and Nora glass, a delicate thin yellow lemon twist resting on the rim, warm travertine coaster on a hinoki wood bar counter, soft natural light, wabi-sabi aesthetic."
+      }
+    ];
+  </script>
+
+  <!-- ========================================================================
+       MINIMAL HEADER (Inline SVG BZ Logo + Icon-Only Theme Switcher + Discreet Links)
+       ======================================================================== -->
+  <header class="site-header no-print" role="navigation" aria-label="Bar Header and Mode Navigation">
+    <div class="site-header-inner">
+      <button type="button" class="brand-link" id="brand-home-btn" aria-label="BZ's Speakeasy Home Menu">
+        <svg class="brand-logo-svg" viewBox="0 0 48 48" role="img" aria-label="BZ's Speakeasy Monogram Logo">
+          <circle cx="24" cy="24" r="21.5" fill="none" stroke="var(--seal-red)" stroke-width="1.6"/>
+          <circle cx="24" cy="24" r="18" fill="none" stroke="var(--border)" stroke-width="0.9"/>
+          <path d="M16 14.5 L32 14.5 L24 23.5 Z" fill="none" stroke="var(--seal-red)" stroke-width="1" stroke-opacity="0.35"/>
+          <line x1="24" y1="23.5" x2="24" y2="34.5" stroke="var(--seal-red)" stroke-width="1" stroke-opacity="0.35"/>
+          <line x1="19" y1="34.5" x2="29" y2="34.5" stroke="var(--seal-red)" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="24" y="28.5" text-anchor="middle" fill="var(--seal-red)" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="14.5" letter-spacing="1.2">BZ</text>
+        </svg>
+        <span>BZ's Speakeasy</span>
+      </button>
+
+      <div class="header-right">
+        <nav class="discreet-nav" aria-label="Internal Navigation">
+          <button type="button" class="discreet-link active" data-target="view-guest" id="tab-guest">
+            Menu
+          </button>
+          <span class="discreet-divider" aria-hidden="true">&middot;</span>
+          <button type="button" class="discreet-link" data-target="view-lab" data-protected="true" id="tab-lab">
+            <span class="discreet-lock-dot" id="lock-dot-lab" aria-hidden="true"></span>
+            <span>Lab</span>
+          </button>
+          <span class="discreet-divider" aria-hidden="true">&middot;</span>
+          <button type="button" class="discreet-link" data-target="view-docs" data-protected="true" id="tab-docs">
+            <span class="discreet-lock-dot" id="lock-dot-docs" aria-hidden="true"></span>
+            <span>Docs</span>
+          </button>
+        </nav>
+
+        <button type="button" class="theme-icon-btn" id="theme-toggle" aria-label="Toggle Light or Dark theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5"></circle>
+            <line x1="12" y1="2" x2="12" y2="4.5"></line>
+            <line x1="12" y1="19.5" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="6.7" y2="6.7"></line>
+            <line x1="17.3" y1="17.3" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="4.5" y2="12"></line>
+            <line x1="19.5" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="6.7" y2="17.3"></line>
+            <line x1="17.3" y1="6.7" x2="19.07" y2="4.93"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       STEALTH CLIENT-SIDE PASSWORD MODAL (Zero Passcode Hints in UI or Tooltips)
+       ======================================================================== -->
+  <div class="auth-modal-backdrop no-print" id="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div class="auth-modal">
+      <div class="auth-modal-header">
+        <h2 class="auth-modal-title" id="auth-modal-title">Staff Access</h2>
+        <button type="button" class="btn-ghost" id="auth-close-btn" style="min-height:36px;padding:4px 10px;">Close</button>
+      </div>
+      <p class="auth-modal-desc">
+        Enter the staff passcode to access internal recipe specifications and project exports.
+      </p>
+      <form id="auth-form">
+        <label class="control-label" for="auth-password-input" style="display:block;margin-bottom:6px;">Passcode</label>
+        <input type="password" id="auth-password-input" class="control-input" placeholder="Enter passcode" autocomplete="off">
+        <p class="auth-error" id="auth-error-msg" role="alert">Invalid passcode.</p>
+        <div class="auth-actions">
+          <button type="button" class="btn-ghost" id="auth-cancel-btn">Cancel</button>
+          <button type="submit" class="btn-primary" id="auth-submit-btn">Unlock</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="fallback-alert" class="fallback-banner" role="status" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       VIEW 1: GUEST BAR MENU (index.html — BZ's Speakeasy)
+       Shows: 1. Cohesive Name (<=3 words, "Silk" used only once), 2. Icon-Only Glass Badge,
+       3. Streamlined Ingredients (5–6 max, single base spirit), 4. Single-Line Flavor Profile
+       ======================================================================== -->
+  <main id="view-guest" class="view-panel active" role="tabpanel">
+    <div class="guest-menu-wrapper">
+      <article class="menu-card" aria-label="BZ's Speakeasy Guest Menu">
+        <header class="menu-header">
+          <svg class="brand-emblem-large" viewBox="0 0 64 64" role="img" aria-label="BZ's Speakeasy Crest">
+            <circle cx="32" cy="32" r="29" fill="none" stroke="var(--seal-red)" stroke-width="1.75"/>
+            <circle cx="32" cy="32" r="24.5" fill="none" stroke="var(--border)" stroke-width="1"/>
+            <path d="M21 19.5 L43 19.5 L32 31.5 Z" fill="none" stroke="var(--seal-red)" stroke-width="1.15" stroke-opacity="0.38"/>
+            <line x1="32" y1="31.5" x2="32" y2="46" stroke="var(--seal-red)" stroke-width="1.15" stroke-opacity="0.38"/>
+            <line x1="25" y1="46" x2="39" y2="46" stroke="var(--seal-red)" stroke-width="1.15" stroke-opacity="0.38"/>
+            <text x="32" y="37.5" text-anchor="middle" fill="var(--seal-red)" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="19" letter-spacing="1.8">BZ</text>
+          </svg>
+          <span class="menu-eyebrow">Seasonal Libations</span>
+          <h1 class="menu-title">BZ's Speakeasy</h1>
+          <p class="menu-epigraph">
+            Bright fruit, wild botanicals, and quiet craft. Prepared to order with unhurried care.
+          </p>
+        </header>
+
+        <section class="menu-section" aria-labelledby="guest-originals-heading">
+          <div class="menu-section-header">
+            <h2 class="menu-section-title" id="guest-originals-heading">House Signatures</h2>
+            <span class="menu-section-tag">Original Creations</span>
+          </div>
+          <ul class="guest-cocktail-list" id="guest-originals-list">
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Komorebi Highball</h3>
+                <span class="guest-glass-badge" aria-label="Highball Glass" title="Highball Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="1"/><line x1="7" y1="7" x2="17" y2="7" stroke-dasharray="1.5 1.5"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">iichiko Barley Shochu &middot; Yuzu Liqueur &middot; Aperitif Wine &middot; Fresh Lemon &middot; Soda Water</p>
+              <p class="guest-cocktail-flavor">Delicate yuzu blossom, crisp orchard fruit, and weightless effervescence.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Silk &amp; Saffron</h3>
+                <span class="guest-glass-badge" aria-label="Nick &amp; Nora Glass" title="Nick &amp; Nora Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 C6 11 9 13 12 13 C15 13 18 11 18 4 Z"/><line x1="12" y1="13" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">New Riff Bourbon &middot; Amaro Nonino &middot; Strega &middot; Fresh Lemon &middot; Blossom Honey &middot; Orange Bitters</p>
+              <p class="guest-cocktail-flavor">Warm spiced honey, bright blood orange citrus, and golden saffron botanicals.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Evening in Miyazaki</h3>
+                <span class="guest-glass-badge" aria-label="Double Rocks Glass" title="Double Rocks Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6 L19 6 L17.5 20 L6.5 20 Z"/><rect x="8.5" y="9" width="7" height="7" rx="1"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Tequila Ocho Plata &middot; Yuzu Liqueur &middot; Cointreau &middot; Fresh Lime &middot; Cane Syrup &middot; Garden Mint</p>
+              <p class="guest-cocktail-flavor">Aromatic Japanese yuzu, bright orange blossom, and crisp highland agave over cool garden mint.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Velvet Nocturne</h3>
+                <span class="guest-glass-badge" aria-label="Low Rocks Glass" title="Low Rocks Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7 L19 7 L17.5 20 L6.5 20 Z"/><rect x="8.5" y="10" width="7" height="6.5" rx="1"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Rittenhouse Rye Whiskey &middot; Sweet Vermouth &middot; Averna Amaro &middot; Black Raspberry Liqueur &middot; Aromatic Bitters</p>
+              <p class="guest-cocktail-flavor">Dark bramble berry, toasted cacao, and caramelized Sicilian citrus over warm rye spice.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Rosewater Canopy</h3>
+                <span class="guest-glass-badge" aria-label="Coupe Glass" title="Coupe Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5 C5 11 8.5 12.5 12 12.5 C15.5 12.5 19 11 20 5 Z"/><line x1="12" y1="12.5" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Empress Elderflower Rose Gin &middot; Aperol &middot; Alpine herbal liqueur &middot; Ruby Grapefruit &middot; Fresh Lemon &middot; Cane Syrup</p>
+              <p class="guest-cocktail-flavor">Ruby grapefruit, wild rose petal, bittersweet orange, and crisp alpine herbs.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Amalfi Gold Drop</h3>
+                <span class="guest-glass-badge" aria-label="Nick &amp; Nora Glass" title="Nick &amp; Nora Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 C6 11 9 13 12 13 C15 13 18 11 18 4 Z"/><line x1="12" y1="13" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Ketel One Vodka &middot; Limoncello &middot; Cointreau &middot; Fresh Lemon &middot; Orange Bitters</p>
+              <p class="guest-cocktail-flavor">Bright Amalfi lemon zest, orange blossom triple sec, and crisp wheat vodka.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="menu-section" aria-labelledby="guest-adaptations-heading">
+          <div class="menu-section-header">
+            <h2 class="menu-section-title" id="guest-adaptations-heading">Classic Adaptations</h2>
+            <span class="menu-section-tag">Modern Interpretations</span>
+          </div>
+          <ul class="guest-cocktail-list" id="guest-adaptations-list">
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Rosepetal Clover Club</h3>
+                <span class="guest-glass-badge" aria-label="Coupe Glass" title="Coupe Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5 C5 11 8.5 12.5 12 12.5 C15.5 12.5 19 11 20 5 Z"/><line x1="12" y1="12.5" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Empress Elderflower Rose Gin &middot; Dry Vermouth &middot; Black Raspberry Liqueur &middot; Fresh Raspberries &middot; Fresh Lemon &middot; Silky Egg White</p>
+              <p class="guest-cocktail-flavor">Plush crushed raspberry, fragrant rose petal, and bright lemon beneath a velvety foam crown.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Yuzu Blossom Hemingway</h3>
+                <span class="guest-glass-badge" aria-label="Coupe Glass" title="Coupe Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5 C5 11 8.5 12.5 12 12.5 C15.5 12.5 19 11 20 5 Z"/><line x1="12" y1="12.5" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Planteray 3 Stars Rum &middot; Yuzu Liqueur &middot; Elderflower Liqueur &middot; Maraschino Liqueur &middot; Ruby Grapefruit &middot; Fresh Lime</p>
+              <p class="guest-cocktail-flavor">Bright Japanese yuzu, ruby grapefruit, and white elderflower over crisp artisanal white rum.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Alpine Orchard Gimlet</h3>
+                <span class="guest-glass-badge" aria-label="Nick &amp; Nora Glass" title="Nick &amp; Nora Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 C6 11 9 13 12 13 C15 13 18 11 18 4 Z"/><line x1="12" y1="13" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Tanqueray No. Ten Gin &middot; Alpine herbal liqueur &middot; Elderflower Liqueur &middot; Fresh Lime &middot; Cane Syrup &middot; Sweet Basil</p>
+              <p class="guest-cocktail-flavor">Crystalline lime, sweet basil, pear-like elderflower, and delicate alpine botanicals.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Golden Hour Spritz</h3>
+                <span class="guest-glass-badge" aria-label="Stemmed Wine Glass" title="Stemmed Wine Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3 C6 10 8.5 14 12 14 C15.5 14 18 10 17 3 Z"/><line x1="12" y1="14" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Prosecco &middot; Aperitif Wine &middot; Aperol &middot; Elderflower Liqueur &middot; Soda Water &middot; Garden Mint</p>
+              <p class="guest-cocktail-flavor">Crisp Prosecco, white elderflower, and bittersweet orange over fresh garden mint.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Sunlit White Negroni</h3>
+                <span class="guest-glass-badge" aria-label="Low Rocks Glass" title="Low Rocks Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7 L19 7 L17.5 20 L6.5 20 Z"/><rect x="8.5" y="10" width="7" height="6.5" rx="1"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Malfy Gin con Limone &middot; Aperitif Wine &middot; Suze &middot; Maraschino Liqueur &middot; Ruby Grapefruit</p>
+              <p class="guest-cocktail-flavor">Amalfi lemon gin, orchard aperitif wine, and golden gentian softened by maraschino cherry.</p>
+            </li>
+            <li class="guest-cocktail-item">
+              <div class="guest-cocktail-top">
+                <h3 class="guest-cocktail-name">Twilight Indigo Martini</h3>
+                <span class="guest-glass-badge" aria-label="Nick &amp; Nora Glass" title="Nick &amp; Nora Glass">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 C6 11 9 13 12 13 C15 13 18 11 18 4 Z"/><line x1="12" y1="13" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+                </span>
+              </div>
+              <p class="guest-cocktail-ingredients">Empress Indigo Gin &middot; Dry Vermouth &middot; Cointreau &middot; Lavender Bitters &middot; Fresh Lemon</p>
+              <p class="guest-cocktail-flavor">Crystalline indigo botanical gin, alpine dry vermouth, and a whisper of orange blossom and lavender.</p>
+            </li>
+          </ul>
+        </section>
+
+        <footer class="menu-footer">
+          <span>Please inform your host of any dietary preferences &middot; Egg-free preparations gladly accommodated</span>
+        </footer>
+      </article>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       VIEW 2: INTERNAL COCKTAIL DEVELOPMENT & RECIPES (lab.html)
+       Includes Dedicated "Inspiration & Naming Story" on Every Recipe Sheet
+       ======================================================================== -->
+  <section id="view-lab" class="view-panel" role="tabpanel">
+    <div class="lab-wrapper">
+      <header class="lab-header">
+        <div>
+          <p class="lab-eyebrow">BZ's Speakeasy &middot; Internal Development &amp; Spec Book &middot; v2.3 Final Master Release</p>
+          <h1 class="lab-title">Collaborative Cocktail Development Lab</h1>
+          <p class="lab-subtitle">
+            Twelve master-balanced cocktails featuring dedicated <strong>Inspiration &amp; Naming Stories</strong>, single primary base spirits, and 5–6 total ingredients per drink.
+          </p>
+        </div>
+        <button type="button" class="btn-ghost no-print" id="lock-session-btn">
+          Lock Staff Session
+        </button>
+      </header>
+
+      <!-- Concise Comparison of Reference Bars -->
+      <div class="reference-grid" aria-label="Stylistic Reference Bar Comparison">
+        <div class="reference-card">
+          <h3>
+            <span>Kumiko (Julia Momosé, Chicago)</span>
+            <span class="reference-tag">Menu Reference</span>
+          </h3>
+          <p>
+            <strong>Style:</strong> Poised, uncluttered drinks highlighting Japanese shochu, yuzu citrus, orchard fruit, and crystal-clear ice.<br>
+            <strong>Lab Application:</strong> Spotlights pure single-spirit foundations (<em>iichiko Silhouette Barley Shochu</em>, <em>Ketel One Vodka</em>, <em>Malfy Gin con Limone</em>) with 5–6 purposeful ingredients.
+          </p>
+        </div>
+        <div class="reference-card">
+          <h3>
+            <span>Bar Bambi (Katie Renshaw, Chicago)</span>
+            <span class="reference-tag">Program Reference</span>
+          </h3>
+          <p>
+            <strong>Style:</strong> Approachable, high-aroma twists on classics weaving Italian amari, alpine herbs, and vibrant berry/citrus notes.<br>
+            <strong>Lab Application:</strong> Uses <em>Amaro Nonino, Averna, Suze, Aperol, Strega, Dolin Génépy, Chambord</em>, and <em>St-Germain</em> to create striking colors and crowd-pleasing balance.
+          </p>
+        </div>
+      </div>
+
+      <!-- Collapsible Bar Inventory with Live Cocktail Usage Tracking -->
+      <details class="inventory-details" open>
+        <summary>
+          <span id="inventory-summary-title">Complete Bar Inventory &amp; Perishables Usage Tracker (52 Items)</span>
+          <span class="summary-indicator">Toggle Inventory Usage</span>
+        </summary>
+        <div class="inventory-usage-overview" id="lab-inventory-summary-bar"></div>
+        <div class="inventory-columns" id="lab-inventory-grid"></div>
+      </details>
+
+      <!-- Sticky Mobile-Friendly Search and Collapsible Filters -->
+      <div class="lab-controls-sticky" role="search" aria-label="Filter Cocktail Recipes">
+        <div class="lab-search-row">
+          <div class="lab-search-wrap">
+            <label class="control-label" for="lab-search" style="display:block;margin-bottom:4px;">Search Cocktail, Naming Story, Single Base Spirit, or Glassware</label>
+            <input type="search" id="lab-search" class="control-input" placeholder="Search e.g., Amalfi Gold Drop, Rosepetal Clover Club, Twilight Indigo Martini...">
+          </div>
+          <button type="button" class="btn-ghost mobile-filter-toggle" id="toggle-mobile-filters" aria-expanded="false" aria-controls="lab-filters-panel" style="align-self:flex-end;">
+            Filters
+          </button>
+        </div>
+
+        <div class="lab-filters-collapsible" id="lab-filters-panel">
+          <div class="control-group">
+            <label class="control-label" for="lab-filter-type">Classification</label>
+            <select id="lab-filter-type" class="control-select">
+              <option value="ALL">All Cocktails (12)</option>
+              <option value="Original Signature">Original Signatures (6)</option>
+              <option value="Classic Adaptation">Classic Adaptations (6)</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="lab-filter-spirit">Primary Base Spirit</label>
+            <select id="lab-filter-spirit" class="control-select">
+              <option value="ALL">All Base Spirits &amp; Modifiers</option>
+              <option value="Gin">Gin (5 Cocktails across 4 Gins)</option>
+              <option value="Vodka">Vodka (Ketel One)</option>
+              <option value="Shochu">Barley Shochu (iichiko)</option>
+              <option value="Rum">Rum (Planteray 3 Stars)</option>
+              <option value="Bourbon">Bourbon (New Riff)</option>
+              <option value="Rye">Rye Whiskey (Rittenhouse)</option>
+              <option value="Agave">Tequila (Tequila Ocho Plata)</option>
+              <option value="Sparkling">Prosecco</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="lab-filter-flavor">Flavor Profile</label>
+            <select id="lab-filter-flavor" class="control-select">
+              <option value="ALL">All Flavor Notes</option>
+              <option value="Citrus">Citrus</option>
+              <option value="Floral">Floral</option>
+              <option value="Fruit">Fruit / Berry</option>
+              <option value="Herbal">Fresh Herbal / Alpine</option>
+              <option value="Bittersweet">Bittersweet / Amaro</option>
+              <option value="Effervescent">Effervescent / Spritz</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="lab-status-bar">
+        <span id="lab-count-label">Showing all 12 cocktail specs</span>
+        <span>Print-ready layout: each recipe formats onto its own page when printed.</span>
+      </div>
+
+      <div class="lab-recipes-grid" id="lab-recipes-container"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       VIEW 3: COMPACT EXPORT TOOLBAR & COMPREHENSIVE README.md DOCUMENTATION
+       ======================================================================== -->
+  <section id="view-docs" class="view-panel" role="tabpanel">
+    <div class="docs-wrapper">
+      <!-- Space-Efficient Compact Inline Export Toolbar -->
+      <div class="compact-export-bar no-print" role="region" aria-label="Quick File Exports">
+        <div class="compact-export-info">
+          <h2 class="compact-export-title">Project File Exports</h2>
+          <p class="compact-export-sub">One-click standalone downloads for GitHub Pages deployment &amp; inventory backup</p>
+        </div>
+        <div class="compact-export-actions">
+          <button type="button" class="btn-primary" id="export-index-btn">Export <code>index.html</code></button>
+          <button type="button" class="btn-primary" id="export-lab-btn">Export <code>lab.html</code></button>
+          <button type="button" class="btn-primary" id="export-readme-btn">Export <code>README.md</code></button>
+          <button type="button" class="btn-ghost" id="export-csv-btn">Export <code>bar_inventory_list.csv</code></button>
+          <button type="button" class="btn-ghost" id="export-json-btn">Export <code>JSON</code></button>
+        </div>
+      </div>
+
+      <article class="readme-document" id="readme-rendered-container" aria-label="Project Documentation README.md">
+        <h1>BZ's Speakeasy — Complete Architecture, Mixology &amp; Design System Reference (<code>README.md</code>)</h1>
+        <p>
+          A minimal, modern, Japanese wabi-sabi inspired cocktail web suite for <strong>BZ's Speakeasy</strong> consisting of a guest-facing mobile bar menu (<code>index.html</code>), a passcode-protected internal cocktail development and recipe book with live ingredient usage tracking (<code>lab.html</code>), the 52-item Bar Inventory &amp; Perishables Mapping CSV (<code>bar_inventory_list.csv</code>), and this master specification document (<code>README.md</code>).
+        </p>
+
+        <h2>1. Core Mixology, Naming &amp; Recipe Rules</h2>
+        <ul>
+          <li><strong>12 Curated Cocktails (6 House Signatures + 6 Classic Adaptations):</strong>
+            <ul>
+              <li><em>House Signatures (6):</em> <strong>Komorebi Highball</strong>, <strong>Silk &amp; Saffron</strong>, <strong>Evening in Miyazaki</strong>, <strong>Velvet Nocturne</strong>, <strong>Rosewater Canopy</strong>, <strong>Amalfi Gold Drop</strong>.</li>
+              <li><em>Classic Adaptations (6):</em> <strong>Rosepetal Clover Club</strong> (Clover Club), <strong>Yuzu Blossom Hemingway</strong> (Hemingway Daiquiri), <strong>Alpine Orchard Gimlet</strong> (Gin Gimlet), <strong>Golden Hour Spritz</strong> (Hugo &amp; Venetian Spritz), <strong>Sunlit White Negroni</strong> (White Negroni), <strong>Twilight Indigo Martini</strong> (Classic Dry Martini).</li>
+            </ul>
+          </li>
+          <li><strong>Naming Conventions (Max 3 Words &amp; Zero "Silk" Overuse):</strong>
+            <ul>
+              <li>Every cocktail name is strictly limited to <strong>3 words or fewer</strong> so guests can order effortlessly.</li>
+              <li>The word <strong>"Silk"</strong> is restricted to appear <strong>at most once</strong> across the entire 12-cocktail menu (used exclusively in <strong>Silk &amp; Saffron</strong>). Former working titles were renamed to <strong>Amalfi Gold Drop</strong>, <strong>Rosepetal Clover Club</strong>, and <strong>Twilight Indigo Martini</strong>.</li>
+              <li>Every cocktail in <code>lab.html</code> includes a dedicated <code>inspirationStory</code> field explaining the creative inspiration, sensory goal, and naming rationale.</li>
+            </ul>
+          </li>
+          <li><strong>Strict Single Primary Base Spirit Rule (No Base Spirit Blending):</strong> Every cocktail uses <strong>one single primary base spirit</strong> (never mixing two gins, two rums, two bourbons, or two vodkas in the same recipe) so each bottle's provenance and character shine clearly.</li>
+          <li><strong>Simplified Complexity (&le;6 Total Ingredients):</strong> Every recipe contains <strong>5 or 6 total ingredients</strong> (including base spirit, modifiers, citrus juices, syrups, bitters, and garnishes) for fast, repeatable service. Unused bottles remain cleanly tracked as reserve stock in <code>INVENTORY</code>.</li>
+          <li><strong>Foundational Flavor Balance Rule:</strong> Every recipe harmonizes sweet, sour, bitter, and alcohol elements so no single component overwhelms the palate, while strictly excluding culinary saltiness, umami, or savory vegetal notes.</li>
+          <li><strong>Spirit Diversity Cap:</strong> No alcoholic bottle or bitter appears in more than <strong>3 cocktails</strong> across the entire 12-drink menu.</li>
+        </ul>
+
+        <h2>2. Perfected 12-Cocktail Summary Matrix (Base Spirit, Count, Color, Glass &amp; Garnish)</h2>
+        <div class="schema-table-wrap">
+          <table class="schema-table" aria-label="Perfected 12-Cocktail Summary Matrix">
+            <thead>
+              <tr>
+                <th>Cocktail Name (&le;3 Words)</th>
+                <th>Single Base Spirit</th>
+                <th>Ingr. Count</th>
+                <th>Drink Color &amp; Visuals</th>
+                <th>Glassware &amp; Garnish</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Komorebi Highball</strong></td>
+                <td>iichiko Barley Shochu</td>
+                <td>5</td>
+                <td>Crystal-clear pale champagne gold</td>
+                <td>Highball Glass &middot; Long lemon peel strip</td>
+              </tr>
+              <tr>
+                <td><strong>Silk &amp; Saffron</strong></td>
+                <td>New Riff Straight Bourbon</td>
+                <td>6</td>
+                <td>Luminous sunlit saffron-amber</td>
+                <td>Nick &amp; Nora Glass &middot; Floating orange coin</td>
+              </tr>
+              <tr>
+                <td><strong>Evening in Miyazaki</strong></td>
+                <td>Tequila Ocho Plata</td>
+                <td>6</td>
+                <td>Translucent pale celadon-lime</td>
+                <td>Double Rocks Glass &middot; Fresh mint crown</td>
+              </tr>
+              <tr>
+                <td><strong>Velvet Nocturne</strong></td>
+                <td>Rittenhouse Straight Rye</td>
+                <td>5</td>
+                <td>Deep jewel-toned ruby mahogany</td>
+                <td>Low Rocks Glass &middot; Expressed orange peel</td>
+              </tr>
+              <tr>
+                <td><strong>Rosewater Canopy</strong></td>
+                <td>Empress Elderflower Rose Gin</td>
+                <td>6</td>
+                <td>Radiant sunset rose-coral with crema</td>
+                <td>Coupe Glass &middot; Pink grapefruit ribbon</td>
+              </tr>
+              <tr>
+                <td><strong>Amalfi Gold Drop</strong></td>
+                <td>Ketel One Vodka</td>
+                <td>5</td>
+                <td>Luminous frosted lemon-gold</td>
+                <td>Nick &amp; Nora Glass &middot; Floating lemon wheel</td>
+              </tr>
+              <tr>
+                <td><strong>Rosepetal Clover Club</strong></td>
+                <td>Empress Elderflower Rose Gin</td>
+                <td>6</td>
+                <td>Vibrant rose-crimson under white foam</td>
+                <td>Coupe Glass &middot; Single fresh raspberry</td>
+              </tr>
+              <tr>
+                <td><strong>Yuzu Blossom Hemingway</strong></td>
+                <td>Planteray 3 Stars Rum</td>
+                <td>6</td>
+                <td>Pale coral-blossom gold with icy froth</td>
+                <td>Coupe Glass &middot; Paper-thin lime wheel</td>
+              </tr>
+              <tr>
+                <td><strong>Alpine Orchard Gimlet</strong></td>
+                <td>Tanqueray No. Ten Gin</td>
+                <td>6</td>
+                <td>Crystalline pale emerald-jade</td>
+                <td>Nick &amp; Nora Glass &middot; Floating basil leaf</td>
+              </tr>
+              <tr>
+                <td><strong>Golden Hour Spritz</strong></td>
+                <td>Prosecco</td>
+                <td>6</td>
+                <td>Radiant golden sunset-peach sparkle</td>
+                <td>Stemmed Wine Glass &middot; Fresh mint sprig</td>
+              </tr>
+              <tr>
+                <td><strong>Sunlit White Negroni</strong></td>
+                <td>Malfy Gin con Limone</td>
+                <td>5</td>
+                <td>Brilliant sunlit daffodil-yellow</td>
+                <td>Low Rocks Glass &middot; Wide ruby grapefruit strip</td>
+              </tr>
+              <tr>
+                <td><strong>Twilight Indigo Martini</strong></td>
+                <td>Empress 1908 Indigo Gin</td>
+                <td>5</td>
+                <td>Translucent twilight-indigo &amp; amethyst</td>
+                <td>Nick &amp; Nora Glass &middot; Yellow lemon twist</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>3. UI/UX Design System, Security &amp; Technical Architecture</h2>
+        <ul>
+          <li><strong>Japanese Wabi-Sabi Spatial Calm (100% English Text):</strong>
+            <ul>
+              <li>Expresses Japanese calm through generous whitespace (<em>ma</em>), hairline dividers, and warm natural tones—using <strong>zero Japanese characters</strong> (no kanji, hiragana, or katakana anywhere in UI, data, or comments).</li>
+              <li><strong>Brand Emblem:</strong> Custom inline SVG <code>BZ</code> monogram and geometric cocktail coupe crest in the sticky header and guest menu card.</li>
+              <li><strong>Light Mode (Daytime 6:00 AM – 5:59 PM Default):</strong> Washi Cream background <code>#F7F3EC</code>, Elevated card <code>#FBF9F5</code>, Subtle fill <code>#EFEAE1</code>, Charcoal ink <code>#2B2B2B</code>, Slate Indigo accent <code>#334756</code>, Moss Green <code>#5B6E58</code>, Terracotta Clay <code>#9E5A47</code>, Vermilion Seal <code>#B83B2B</code>.</li>
+              <li><strong>Dark Mode (Nighttime 6:00 PM – 5:59 AM Default):</strong> Sumi Charcoal background <code>#1B1A18</code>, Elevated card <code>#24221F</code>, Warm cream ink <code>#EDE8DF</code>, Indigo accent <code>#86A8C0</code>.</li>
+              <li><strong>Theme Switcher:</strong> Automatic time-based initialization via <code>new Date().getHours()</code> paired with a 44x44px circular <strong>icon-only Sun/Moon toggle</strong> in the header for manual override.</li>
+              <li><strong>Typography:</strong> Headings in <code>"Cormorant Garamond", Georgia, serif</code>; Body &amp; UI in <code>"DM Sans", -apple-system, sans-serif</code> (16px minimum body text); Numeric specs &amp; prompts in <code>"JetBrains Mono", monospace</code>.</li>
+            </ul>
+          </li>
+          <li><strong>Guest Bar Menu (<code>index.html</code>) Rules:</strong>
+            <ul>
+              <li>Shows ONLY: (1) Cocktail name (&le;3 words), (2) Minimal circular <strong>icon-only SVG glass badge</strong> (no text label), (3) Simplified guest-friendly ingredient names mapped from <code>bar_inventory_list.csv</code> (no measurements), and (4) A single-line italic flavor profile.</li>
+            </ul>
+          </li>
+          <li><strong>Stealth Staff Passcode Protection (<code>lab.html</code> &amp; <code>README.md</code>):</strong>
+            <ul>
+              <li>Internal navigation links (<code>Lab</code> and <code>Docs</code>) are styled as discreet, low-contrast text links in the header.</li>
+              <li>Clicking <code>Lab</code> or <code>Docs</code> while locked opens an in-page modal checking the hardcoded passcode <code>benzzers</code>.</li>
+              <li><strong>Stealth UI Rule:</strong> Never display or hint at the passcode <code>benzzers</code> anywhere in the modal, UI text, or tooltips.</li>
+            </ul>
+          </li>
+          <li><strong>Sandboxed Preview &amp; GitHub Pages Resilience:</strong>
+            <ul>
+              <li>Never use blocking browser dialogs (<code>prompt()</code>, <code>alert()</code>, <code>confirm()</code>).</li>
+              <li>Never include raw closing tags (<code>&lt;/script&gt;</code>, <code>&lt;/head&gt;</code>) inside inline JavaScript strings; construct exported HTML tags via string concatenation (<code>'&lt;' + '/script&gt;'</code>).</li>
+              <li>Pre-populate the Guest Bar Menu HTML in the static markup and wrap DOM setup in <code>try/catch</code> so the page never renders a blank screen.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2>4. Data Schema (<code>COCKTAILS</code> &amp; <code>INVENTORY</code> Objects)</h2>
+        <div class="schema-table-wrap">
+          <table class="schema-table" aria-label="Data Schema Reference">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>id</code> / <code>name</code></td>
+                <td><code>string</code></td>
+                <td>Unique kebab-case ID and cocktail title (strictly &le;3 words; "Silk" used at most once across the menu).</td>
+              </tr>
+              <tr>
+                <td><code>classification</code> / <code>classicInspiration</code></td>
+                <td><code>string</code></td>
+                <td><code>"Original Signature"</code> or <code>"Classic Adaptation"</code>, plus classic inspiration name.</td>
+              </tr>
+              <tr>
+                <td><code>baseSpiritCategory</code> / <code>glassType</code></td>
+                <td><code>string</code></td>
+                <td>Single primary base spirit category and verified glassware name.</td>
+              </tr>
+              <tr>
+                <td><code>drinkColor</code> / <code>garnish</code></td>
+                <td><code>string</code></td>
+                <td>Appetizing visual color profile and modern purposeful garnish specification.</td>
+              </tr>
+              <tr>
+                <td><code>mixingTechnique</code></td>
+                <td><code>string</code></td>
+                <td>Prominent primary technique label (Stirring, Shaking, Dry/Wet Shake, or Built) with ice &amp; dilution specs.</td>
+              </tr>
+              <tr>
+                <td><code>inspirationStory</code></td>
+                <td><code>string</code></td>
+                <td>Dedicated storytelling narrative explaining the drink's inspiration, creation process, and naming rationale.</td>
+              </tr>
+              <tr>
+                <td><code>conceptStory</code> / <code>balanceExplanation</code></td>
+                <td><code>string</code></td>
+                <td>Technical bar concept and how sweet, sour, bitter, and spirit proof are balanced.</td>
+              </tr>
+              <tr>
+                <td><code>guestIngredients</code> / <code>labIngredients</code></td>
+                <td><code>string[]</code></td>
+                <td>5–6 simplified guest-facing names (for <code>index.html</code>) and exact technical bottle names (for <code>lab.html</code>).</td>
+              </tr>
+              <tr>
+                <td><code>recipeSpec</code></td>
+                <td><code>Array&lt;{item, ml, oz, note}&gt;</code></td>
+                <td>5–6 exact single-serving measurements in milliliters (ml) and US fluid ounces (oz).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>5. Complete 52-Item Bar Inventory Mapping Table (<code>bar_inventory_list.csv</code>)</h2>
+        <div class="schema-table-wrap">
+          <table class="schema-table" aria-label="Bar Inventory List and Ingredient Mapping">
+            <thead>
+              <tr>
+                <th>Item_ID</th>
+                <th>Base_Spirit / Category</th>
+                <th>Full_Ingredient_Name (Lab)</th>
+                <th>Simplified_Ingredient_Name (Guest Menu)</th>
+                <th>Status / Notes &amp; Live Menu Usage</th>
+              </tr>
+            </thead>
+            <tbody id="docs-inventory-table-body"></tbody>
+          </table>
+        </div>
+
+        <!-- Compact Collapsible Accordions for Raw CSV, AI Rebuild Prompt, and JSON Backup -->
+        <details class="doc-accordion">
+          <summary>
+            <span>Raw CSV Source (<code>bar_inventory_list.csv</code> — 52 Items)</span>
+            <span class="summary-indicator">Expand / Export CSV</span>
+          </summary>
+          <div class="snippet-header">
+            <span>Copy or export the raw CSV mapping:</span>
+            <button type="button" class="btn-ghost no-print" id="export-csv-inline-btn">Export bar_inventory_list.csv</button>
+          </div>
+          <pre><code id="csv-preview-block"></code></pre>
+        </details>
+
+        <details class="doc-accordion" open>
+          <summary>
+            <span>Prompt for AI (Master Rebuild &amp; Extension Prompt)</span>
+            <span class="summary-indicator">Expand / Export Prompt</span>
+          </summary>
+          <div class="snippet-header">
+            <span>Give this prompt to any AI or developer to reproduce or extend the project with 100% fidelity:</span>
+            <button type="button" class="btn-ghost no-print" id="export-ai-prompt-btn">Export Prompt (.txt)</button>
+          </div>
+          <pre><code id="ai-rebuild-prompt">Act as an expert front-end engineer, UI designer, copywriter, and master mixologist for "BZ's Speakeasy". Build and maintain two self-contained HTML apps (`index.html` for the guest bar menu and `lab.html` for the internal cocktail development book), `bar_inventory_list.csv`, and `README.md`.
+
+1. DESIGN & THEME: Japanese wabi-sabi minimal style using 100% English text (zero Japanese characters) and an inline SVG "BZ" monogram & coupe logo. Daytime Light Mode (6 AM–6 PM default): warm washi cream (#F7F3EC), charcoal ink (#2B2B2B), slate indigo (#334756), moss green (#5B6E58), terracotta clay (#9E5A47), vermilion seal (#B83B2B). Nighttime Dark Mode (6 PM–6 AM default): sumi charcoal (#1B1A18) and warm cream ink (#EDE8DF), with a 44x44px icon-only Sun/Moon header toggle. Use Cormorant Garamond for headings, DM Sans (16px min) for body, and JetBrains Mono for specs.
+2. SECURITY: Keep "Lab" and "Docs" as discreet, low-contrast header links protected by an in-page passcode modal checking `benzzers` with zero passcode hints anywhere in the UI or tooltips.
+3. MIXOLOGY & NAMING RULES: Maintain 12 cocktails (6 House Signatures + 6 Classic Adaptations). Each cocktail must use ONLY ONE primary base spirit (no blending multiple gins, rums, bourbons, or vodkas), contain 6 or fewer total ingredients, harmonize sweet/sour/bitter/alcohol, have a name of 3 words or fewer, use the word "Silk" at most once across the entire menu ("Silk & Saffron"), and cap any alcoholic bottle at <=3 cocktails.
+4. VIEWS: On `index.html`, show ONLY the cocktail name, an icon-only SVG glass badge, simplified guest ingredient names mapped from `bar_inventory_list.csv`, and a 1-line flavor profile. On `lab.html`, include the 52-item Inventory Usage Tracker, dedicated "Inspiration & Naming Story" (`inspirationStory`), "Primary Mixing Spec" banner, "Drink Color & Garnish" boxes, ml/oz spec table, and 1-page-per-cocktail print CSS. In Docs, use a compact inline export toolbar.</code></pre>
+        </details>
+
+        <details class="doc-accordion">
+          <summary>
+            <span>Consolidated Inventory &amp; Cocktail Data Backup (JSON Source of Truth)</span>
+            <span class="summary-indicator">Expand / Export JSON</span>
+          </summary>
+          <div class="snippet-header">
+            <span>Complete JSON backup of all 52 inventory items and 12 cocktails:</span>
+            <button type="button" class="btn-ghost no-print" id="export-json-inline-btn">Export JSON Backup</button>
+          </div>
+          <pre><code id="readme-json-backup"></code></pre>
+        </details>
+
+        <h2>6. Changelog</h2>
+        <ul>
+          <li><strong>v2.3 (Current Final Release — Naming Audit, Inspiration &amp; Naming Stories, Comprehensive README &amp; Compact Export Toolbar):</strong>
+            <ul>
+              <li>Eliminated overuse of the word <strong>"Silk"</strong> across the menu so it appears only once (in <strong>Silk &amp; Saffron</strong>), renaming the other three drinks to <strong>Amalfi Gold Drop</strong>, <strong>Rosepetal Clover Club</strong>, and <strong>Twilight Indigo Martini</strong> (all &le;3 words).</li>
+              <li>Added a dedicated <strong>Inspiration &amp; Naming Story</strong> (<code>inspirationStory</code>) callout to all 12 cocktails in <code>lab.html</code>.</li>
+              <li>Redesigned the Export section in Docs into a sleek, space-efficient <strong>Compact Export Toolbar</strong> with collapsible accordions for raw CSV and JSON blocks.</li>
+              <li>Expanded <code>README.md</code> to document every mixology rule, naming constraint, design token, security rule, and data field.</li>
+            </ul>
+          </li>
+          <li><strong>v2.2:</strong> Enforced Single Primary Base Spirit rule (no base blending), capped all recipes at 5–6 ingredients (&le;6), and added explicit Drink Color &amp; Garnish cards.</li>
+          <li><strong>v2.1:</strong> Audited spirit diversity (max 3 cocktails per alcoholic bottle) across the 52-item inventory.</li>
+          <li><strong>v2.0:</strong> Added Vodka signature and Martini adaptation, icon-only glass badges on <code>index.html</code>, and Mixing Technique banners in <code>lab.html</code>.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       APPLICATION LOGIC (Auto-Theme, Stealth Passcode Gate, Storytelling, Compact Exporters)
+       ======================================================================== -->
+  <script>
+    (function () {
+      var ADMIN_PASSCODE = "benzzers";
+      var isStaffUnlocked = false;
+      var pendingTargetId = null;
+
+      function showFallbackMessage(msg) {
+        var banner = document.getElementById("fallback-alert");
+        if (banner) {
+          banner.style.display = "block";
+          banner.textContent = "Notice: " + msg + " Showing static fallback content.";
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      // 1. Automatic Time-Based Theme Initialization (Daytime 6:00–17:59 Light, Nighttime 18:00–5:59 Dark)
+      function applyTheme(theme) {
+        var btn = document.getElementById("theme-toggle");
+        if (theme === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+          if (btn) {
+            btn.setAttribute("aria-label", "Switch to Light mode");
+          }
+        } else {
+          document.documentElement.removeAttribute("data-theme");
+          if (btn) {
+            btn.setAttribute("aria-label", "Switch to Dark mode");
+          }
+        }
+      }
+
+      function initAutoTheme() {
+        var hour = new Date().getHours();
+        var isDaytime = hour >= 6 && hour < 18;
+        applyTheme(isDaytime ? "light" : "dark");
+      }
+
+      // Small 16x16 inline SVG glass icon for Guest Bar Menu icon-only badges
+      function getSmallGlassIconSvg(glassType) {
+        var g = String(glassType || "").toLowerCase();
+        if (g.indexOf("highball") !== -1 || g.indexOf("collins") !== -1) {
+          return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+            '<rect x="7" y="3" width="10" height="18" rx="1"/>' +
+            '<line x1="7" y1="7" x2="17" y2="7" stroke-dasharray="1.5 1.5"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("nick") !== -1) {
+          return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+            '<path d="M6 4 C6 11 9 13 12 13 C15 13 18 11 18 4 Z"/>' +
+            '<line x1="12" y1="13" x2="12" y2="21"/>' +
+            '<line x1="8" y1="21" x2="16" y2="21"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("double rocks") !== -1) {
+          return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+            '<path d="M5 6 L19 6 L17.5 20 L6.5 20 Z"/>' +
+            '<rect x="8.5" y="9" width="7" height="7" rx="1"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("rocks") !== -1) {
+          return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+            '<path d="M5 7 L19 7 L17.5 20 L6.5 20 Z"/>' +
+            '<rect x="8.5" y="10" width="7" height="6.5" rx="1"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("wine") !== -1 || g.indexOf("spritz") !== -1) {
+          return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+            '<path d="M7 3 C6 10 8.5 14 12 14 C15.5 14 18 10 17 3 Z"/>' +
+            '<line x1="12" y1="14" x2="12" y2="21"/>' +
+            '<line x1="8" y1="21" x2="16" y2="21"/>' +
+          '</svg>';
+        }
+        return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path d="M4 5 C5 11 8.5 12.5 12 12.5 C15.5 12.5 19 11 20 5 Z"/>' +
+          '<line x1="12" y1="12.5" x2="12" y2="21"/>' +
+          '<line x1="8" y1="21" x2="16" y2="21"/>' +
+        '</svg>';
+      }
+
+      // Large 64x64 SVG glassware illustration for Lab Recipe Cards
+      function getGlasswareSvg(glassware) {
+        var g = String(glassware || "").toLowerCase();
+        if (g.indexOf("highball") !== -1 || g.indexOf("collins") !== -1) {
+          return '<svg viewBox="0 0 64 64" role="img" aria-label="Highball glass illustration">' +
+            '<rect x="20" y="10" width="24" height="44" rx="2"/>' +
+            '<line x1="20" y1="20" x2="44" y2="20" stroke-dasharray="2 2"/>' +
+            '<rect x="25" y="15" width="14" height="34" rx="1" opacity="0.45"/>' +
+            '<circle cx="35" cy="17" r="1.5"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("nick") !== -1) {
+          return '<svg viewBox="0 0 64 64" role="img" aria-label="Nick and Nora glass illustration">' +
+            '<path d="M18 14 C18 30 24 35 32 35 C40 35 46 30 46 14 Z"/>' +
+            '<line x1="32" y1="35" x2="32" y2="52"/>' +
+            '<line x1="22" y1="52" x2="42" y2="52"/>' +
+            '<line x1="19" y1="19" x2="45" y2="19" opacity="0.5"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("rocks") !== -1 || g.indexOf("old fashioned") !== -1) {
+          return '<svg viewBox="0 0 64 64" role="img" aria-label="Rocks glass illustration">' +
+            '<path d="M16 18 L48 18 L45 50 L19 50 Z"/>' +
+            '<rect x="23" y="25" width="18" height="18" rx="2" opacity="0.5"/>' +
+            '<path d="M18 28 Q32 30 46 28" opacity="0.6"/>' +
+          '</svg>';
+        }
+        if (g.indexOf("wine") !== -1 || g.indexOf("footed") !== -1) {
+          return '<svg viewBox="0 0 64 64" role="img" aria-label="Stemmed spritz wine glass illustration">' +
+            '<path d="M20 12 C18 28 24 36 32 36 C40 36 46 28 44 12 Z"/>' +
+            '<line x1="32" y1="36" x2="32" y2="52"/>' +
+            '<line x1="22" y1="52" x2="42" y2="52"/>' +
+            '<line x1="20" y1="20" x2="44" y2="20" opacity="0.5"/>' +
+          '</svg>';
+        }
+        return '<svg viewBox="0 0 64 64" role="img" aria-label="Coupe glass illustration">' +
+          '<path d="M14 16 C16 29 24 33 32 33 C40 33 48 29 50 16 Z"/>' +
+          '<line x1="32" y1="33" x2="32" y2="52"/>' +
+          '<line x1="21" y1="52" x2="43" y2="52"/>' +
+          '<line x1="16" y1="20" x2="48" y2="20" opacity="0.5"/>' +
+        '</svg>';
+      }
+
+      // 2. Render Guest Bar Menu (index.html view — icon-only glass badge & <=6 ingredients)
+      function renderGuestMenu() {
+        var originalsList = document.getElementById("guest-originals-list");
+        var adaptationsList = document.getElementById("guest-adaptations-list");
+        if (!originalsList || !adaptationsList || !Array.isArray(COCKTAILS)) return;
+
+        originalsList.innerHTML = "";
+        adaptationsList.innerHTML = "";
+
+        COCKTAILS.forEach(function (drink) {
+          var li = document.createElement("li");
+          li.className = "guest-cocktail-item";
+          var cleanIngredients = Array.isArray(drink.guestIngredients) ? drink.guestIngredients : [];
+          var glassLabel = drink.glassType || (drink.presentation && drink.presentation.glassware) || "Coupe Glass";
+          li.innerHTML =
+            '<div class="guest-cocktail-top">' +
+              '<h3 class="guest-cocktail-name">' + escapeHtml(drink.name) + '</h3>' +
+              '<span class="guest-glass-badge" aria-label="' + escapeHtml(glassLabel) + '" title="' + escapeHtml(glassLabel) + '">' +
+                getSmallGlassIconSvg(glassLabel) +
+              '</span>' +
+            '</div>' +
+            '<p class="guest-cocktail-ingredients">' + cleanIngredients.map(escapeHtml).join(" &middot; ") + '</p>' +
+            '<p class="guest-cocktail-flavor">' + escapeHtml(drink.guestFlavorLine) + '</p>';
+
+          if (drink.classification === "Original Signature") {
+            originalsList.appendChild(li);
+          } else {
+            adaptationsList.appendChild(li);
+          }
+        });
+      }
+
+      // 3. Render Lab Bar Inventory Drawer with Live Cocktail Usage Count Tracking (All 52 Items)
+      function renderInventoryDrawer() {
+        var grid = document.getElementById("lab-inventory-grid");
+        var summaryTitle = document.getElementById("inventory-summary-title");
+        var summaryBar = document.getElementById("lab-inventory-summary-bar");
+        if (!grid || typeof INVENTORY !== "object" || !Array.isArray(INVENTORY.items)) return;
+
+        var totalCount = INVENTORY.getTotalCount();
+        var usedItemsCount = 0;
+        var maxAlcoholUse = 0;
+
+        INVENTORY.items.forEach(function (item, idx) {
+          var count = INVENTORY.getUsageCountForItem(item, COCKTAILS);
+          if (count > 0) {
+            usedItemsCount += 1;
+          }
+          if (idx < 41 && count > maxAlcoholUse) {
+            maxAlcoholUse = count;
+          }
+        });
+
+        if (summaryTitle) {
+          summaryTitle.textContent =
+            "Complete Bar Inventory & Perishables Usage Tracker (" +
+            usedItemsCount +
+            " Active in Menu · " +
+            (totalCount - usedItemsCount) +
+            " Reserve Bottles)";
+        }
+
+        if (summaryBar) {
+          summaryBar.innerHTML =
+            "<span><strong>Single-Base &amp; &le;6 Ingredient Rule:</strong> " +
+            usedItemsCount +
+            " items used across 12 drinks &middot; " +
+            (totalCount - usedItemsCount) +
+            " reserve spirits held in stock</span>" +
+            "<span><strong>Spirit Diversity Cap:</strong> Max " +
+            maxAlcoholUse +
+            " cocktails per alcoholic bottle (zero spirit fatigue)</span>";
+        }
+
+        var categories = INVENTORY.getCategories();
+        grid.innerHTML = categories
+          .map(function (cat) {
+            var rowsHtml = cat.items
+              .map(function (item) {
+                var usageCount = INVENTORY.getUsageCountForItem(item, COCKTAILS);
+                var usedDrinks = INVENTORY.getCocktailsUsingItem(item, COCKTAILS);
+                var pillClass = "usage-pill";
+                if (usageCount >= 3) {
+                  pillClass += " high-use";
+                } else if (usageCount >= 1) {
+                  pillClass += " active-use";
+                }
+                var countText =
+                  usageCount === 1 ? "1 cocktail" : usageCount + " cocktails";
+                var titleAttr =
+                  usedDrinks.length > 0
+                    ? "Used in: " + usedDrinks.join(", ")
+                    : "Reserve stock — currently unused in the 12 active menu cocktails";
+
+                return (
+                  '<li class="inventory-item-row" title="' + escapeHtml(titleAttr) + '">' +
+                    '<div>' +
+                      '<span class="inventory-item-name">' + escapeHtml(item.fullName) + '</span>' +
+                      '<span class="inventory-item-sub">Guest menu: ' + escapeHtml(item.simplifiedName) + '</span>' +
+                    '</div>' +
+                    '<span class="' + pillClass + '">' + escapeHtml(countText) + '</span>' +
+                  '</li>'
+                );
+              })
+              .join("");
+
+            return (
+              "<div>" +
+                "<h4>" + escapeHtml(cat.label + " (" + cat.items.length + ")") + "</h4>" +
+                '<ul class="inventory-item-list">' + rowsHtml + "</ul>" +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+
+      // 4. Render Internal Cocktail Lab (lab.html view — Includes Dedicated Inspiration & Naming Story)
+      function renderLabRecipes() {
+        var searchInput = document.getElementById("lab-search");
+        var typeSelect = document.getElementById("lab-filter-type");
+        var spiritSelect = document.getElementById("lab-filter-spirit");
+        var flavorSelect = document.getElementById("lab-filter-flavor");
+        var container = document.getElementById("lab-recipes-container");
+        if (!container || !Array.isArray(COCKTAILS)) return;
+
+        var searchVal = searchInput ? (searchInput.value || "").trim().toLowerCase() : "";
+        var typeVal = typeSelect ? typeSelect.value : "ALL";
+        var spiritVal = spiritSelect ? spiritSelect.value : "ALL";
+        var flavorVal = flavorSelect ? flavorSelect.value : "ALL";
+
+        var filtered = COCKTAILS.filter(function (c) {
+          if (typeVal !== "ALL" && c.classification !== typeVal) return false;
+
+          var fullBottles = Array.isArray(c.labIngredients) ? c.labIngredients : c.guestIngredients;
+
+          if (spiritVal !== "ALL") {
+            var haySpirit = (c.baseSpiritCategory + " " + fullBottles.join(" ")).toLowerCase();
+            if (haySpirit.indexOf(spiritVal.toLowerCase()) === -1) return false;
+          }
+
+          if (flavorVal !== "ALL") {
+            var hasFlavor = c.flavorTags.some(function (t) {
+              return t.toLowerCase().indexOf(flavorVal.toLowerCase()) !== -1;
+            });
+            if (!hasFlavor) return false;
+          }
+
+          if (searchVal) {
+            var haystack = [
+              c.name,
+              c.classification,
+              c.classicInspiration || "",
+              c.baseSpiritCategory,
+              c.glassType || "",
+              c.drinkColor || "",
+              c.mixingTechnique || "",
+              c.inspirationStory || "",
+              c.guestFlavorLine,
+              c.conceptStory
+            ]
+              .concat(fullBottles)
+              .concat(c.flavorTags)
+              .join(" ")
+              .toLowerCase();
+            if (haystack.indexOf(searchVal) === -1) return false;
+          }
+          return true;
+        });
+
+        var countLabel = document.getElementById("lab-count-label");
+        if (countLabel) {
+          countLabel.textContent = "Showing " + filtered.length + " of " + COCKTAILS.length + " cocktail specs";
+        }
+
+        if (filtered.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state">' +
+              '<p>No cocktails match the current filters.</p>' +
+              '<button type="button" class="btn-ghost" id="reset-lab-filters">Reset Filters</button>' +
+            '</div>';
+          var resetBtn = document.getElementById("reset-lab-filters");
+          if (resetBtn) {
+            resetBtn.addEventListener("click", function () {
+              if (searchInput) searchInput.value = "";
+              if (typeSelect) typeSelect.value = "ALL";
+              if (spiritSelect) spiritSelect.value = "ALL";
+              if (flavorSelect) flavorSelect.value = "ALL";
+              renderLabRecipes();
+            });
+          }
+          return;
+        }
+
+        container.innerHTML = filtered
+          .map(function (c) {
+            var isOriginal = c.classification === "Original Signature";
+            var badgeClass = isOriginal ? "badge-original" : "badge-adaptation";
+            var fullBottles = Array.isArray(c.labIngredients) ? c.labIngredients : c.guestIngredients;
+            var glassName = c.glassType || c.presentation.glassware;
+            var ingrCount = Array.isArray(c.recipeSpec) ? c.recipeSpec.length : fullBottles.length;
+            var visualBlock = c.imageUrl
+              ? '<div class="visual-placeholder" style="padding:0;overflow:hidden;">' +
+                  '<img src="' + escapeHtml(c.imageUrl) + '" alt="' + escapeHtml(c.name) + ' finished cocktail" style="width:100%;height:100%;object-fit:cover;">' +
+                '</div>'
+              : '<div class="visual-placeholder">' +
+                  getGlasswareSvg(glassName) +
+                  '<span class="visual-caption">' + escapeHtml(c.name) + " &middot; " + escapeHtml(glassName) + '</span>' +
+                '</div>';
+
+            var specRows = c.recipeSpec
+              .map(function (row) {
+                var metricText = typeof row.ml === "number" ? row.ml + " ml" : String(row.ml);
+                return (
+                  "<tr>" +
+                    "<td>" +
+                      "<strong>" + escapeHtml(row.item) + "</strong>" +
+                      '<span class="spec-note">' + escapeHtml(row.note) + "</span>" +
+                    "</td>" +
+                    '<td class="num">' + escapeHtml(metricText) + "</td>" +
+                    '<td class="num">' + escapeHtml(row.oz) + "</td>" +
+                  "</tr>"
+                );
+              })
+              .join("");
+
+            var prepItems = c.prepSteps
+              .map(function (s) { return "<li>" + escapeHtml(s) + "</li>"; })
+              .join("");
+
+            var flavorBadges = c.flavorTags
+              .map(function (t) { return '<span class="badge">' + escapeHtml(t) + "</span>"; })
+              .join("");
+
+            return (
+              '<article class="recipe-sheet" id="recipe-' + escapeHtml(c.id) + '">' +
+                '<header class="recipe-sheet-header">' +
+                  "<div>" +
+                    '<div class="recipe-badges">' +
+                      '<span class="badge ' + badgeClass + '">' + escapeHtml(c.classification) + "</span>" +
+                      (c.classicInspiration ? '<span class="badge">Inspired by: ' + escapeHtml(c.classicInspiration) + "</span>" : "") +
+                      '<span class="badge">' + escapeHtml(ingrCount + " Ingredients") + "</span>" +
+                      flavorBadges +
+                    "</div>" +
+                    '<h2 class="recipe-name">' + escapeHtml(c.name) + "</h2>" +
+                  "</div>" +
+                  '<div class="recipe-meta-quick">' +
+                    "<div><strong>Single Base:</strong> " + escapeHtml(c.baseSpiritCategory) + "</div>" +
+                    "<div><strong>Glass:</strong> " + escapeHtml(glassName) + "</div>" +
+                    "<div><strong>Intensity:</strong> " + escapeHtml(c.spiritIntensity) + "</div>" +
+                  "</div>" +
+                "</header>" +
+
+                '<div class="recipe-body-grid">' +
+                  "<div>" +
+                    '<h3 class="recipe-section-title">Inspiration &amp; Naming Story</h3>' +
+                    '<div class="story-callout">' +
+                      '<strong>Why "' + escapeHtml(c.name) + '"?</strong>' +
+                      escapeHtml(c.inspirationStory || c.conceptStory) +
+                    "</div>" +
+
+                    '<h3 class="recipe-section-title">Concept &amp; Master Flavor Balance</h3>' +
+                    '<p class="recipe-story">' + escapeHtml(c.conceptStory) + "</p>" +
+                    '<p class="recipe-story"><strong>Balance (Sweet / Sour / Bitter / Spirit):</strong> ' + escapeHtml(c.balanceExplanation) + "</p>" +
+                    '<p class="recipe-story"><strong>Lab Inventory Lineup (' + ingrCount + ' Items):</strong> ' + fullBottles.map(escapeHtml).join(" &middot; ") + "</p>" +
+
+                    '<h3 class="recipe-section-title">Single-Serving Spec (' + ingrCount + ' Ingredients &middot; ml &amp; US fl oz)</h3>' +
+                    '<div class="spec-table-wrap">' +
+                      '<table class="spec-table" aria-label="' + escapeHtml(c.name) + ' Ingredient Measurements">' +
+                        "<thead>" +
+                          "<tr>" +
+                            "<th>Exact Ingredient / Bottle (Lab Spec)</th>" +
+                            '<th class="num">Metric</th>' +
+                            '<th class="num">US Oz / Count</th>' +
+                          "</tr>" +
+                        "</thead>" +
+                        "<tbody>" + specRows + "</tbody>" +
+                      "</table>" +
+                    "</div>" +
+
+                    '<h3 class="recipe-section-title">Preparation Method</h3>' +
+                    '<div class="technique-banner">' +
+                      "<strong>Primary Mixing Spec</strong><br>" +
+                      escapeHtml(c.mixingTechnique) +
+                    "</div>" +
+                    '<ol class="steps-list">' + prepItems + "</ol>" +
+                  "</div>" +
+
+                  "<div>" +
+                    '<div class="visual-card">' +
+                      visualBlock +
+                      '<div class="prompt-box">' +
+                        '<div class="prompt-header">' +
+                          '<span class="prompt-label">Minimal Editorial AI Image Prompt</span>' +
+                          '<button type="button" class="btn-ghost no-print export-prompt-btn" data-id="' + escapeHtml(c.id) + '" data-prompt="' + escapeHtml(c.imagePrompt) + '">Export Prompt</button>' +
+                        "</div>" +
+                        '<p class="prompt-text">' + escapeHtml(c.imagePrompt) + "</p>" +
+                      "</div>" +
+                    "</div>" +
+
+                    '<h3 class="recipe-section-title">Visual Appeal: Color, Garnish &amp; Glassware</h3>' +
+                    '<div class="sub-box">' +
+                      "<strong>Drink Color &amp; Visual Profile</strong>" +
+                      escapeHtml(c.drinkColor || c.presentation.servingNotes) +
+                    "</div>" +
+                    '<div class="sub-box">' +
+                      "<strong>Modern Purposeful Garnish</strong>" +
+                      escapeHtml(c.garnish) +
+                    "</div>" +
+                    '<div class="sub-box">' +
+                      "<strong>Glassware &amp; Ice Spec</strong>" +
+                      "Glass: " + escapeHtml(c.presentation.glassware) + "<br>" +
+                      "Ice: " + escapeHtml(c.presentation.ice) + "<br>" +
+                      "Serving Note: " + escapeHtml(c.presentation.servingNotes) +
+                    "</div>" +
+
+                    '<h3 class="recipe-section-title">House Prep &amp; Simpler Option</h3>' +
+                    '<div class="sub-box">' +
+                      "<strong>House Component</strong>" +
+                      escapeHtml(c.houseComponents.required) +
+                    "</div>" +
+                    '<div class="sub-box">' +
+                      "<strong>Zero-Cook / Simpler Option</strong>" +
+                      escapeHtml(c.houseComponents.alternative) +
+                    "</div>" +
+                  "</div>" +
+                "</div>" +
+              "</article>"
+            );
+          })
+          .join("");
+
+        var promptBtns = container.querySelectorAll(".export-prompt-btn");
+        promptBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var prompt = btn.getAttribute("data-prompt") || "";
+            var drinkId = btn.getAttribute("data-id") || "cocktail";
+            exportFileContent(prompt, drinkId + "-image-prompt.txt", "text/plain;charset=utf-8;", btn, "Exported!");
+          });
+        });
+      }
+
+      // 5. Build Bar Inventory List & Ingredient Mapping CSV (All 52 Items)
+      function csvEscapeField(val) {
+        var str = String(val == null ? "" : val);
+        if (str.indexOf('"') !== -1 || str.indexOf(",") !== -1 || str.indexOf("\n") !== -1) {
+          return '"' + str.replace(/"/g, '""') + '"';
+        }
+        return str;
+      }
+
+      function buildBarInventoryListCsv() {
+        var rows = [
+          [
+            "Item_ID",
+            "Base_Spirit / Category",
+            "Full_Ingredient_Name",
+            "Simplified_Ingredient_Name",
+            "Status / Notes"
+          ].join(",")
+        ];
+
+        INVENTORY.items.forEach(function (item) {
+          var usageCount = INVENTORY.getUsageCountForItem(item, COCKTAILS);
+          var usedNames = INVENTORY.getCocktailsUsingItem(item, COCKTAILS);
+          var usageNote =
+            usageCount > 0
+              ? item.status + " (Used in " + usageCount + ": " + usedNames.join("; ") + ")"
+              : item.status + " (Used in 0 active menu cocktails)";
+
+          rows.push(
+            [
+              csvEscapeField(item.id),
+              csvEscapeField(item.category),
+              csvEscapeField(item.fullName),
+              csvEscapeField(item.simplifiedName),
+              csvEscapeField(usageNote)
+            ].join(",")
+          );
+        });
+
+        return rows.join("\n");
+      }
+
+      // 6. Populate Bar Inventory List Table, CSV Preview, and JSON Backup in Docs
+      function renderReadmeAndCsvExports() {
+        var tableBody = document.getElementById("docs-inventory-table-body");
+        if (tableBody && Array.isArray(INVENTORY.items)) {
+          tableBody.innerHTML = INVENTORY.items
+            .map(function (item) {
+              var usageCount = INVENTORY.getUsageCountForItem(item, COCKTAILS);
+              var usedNames = INVENTORY.getCocktailsUsingItem(item, COCKTAILS);
+              var countBadge =
+                usageCount > 0
+                  ? "Used in " + usageCount + " (" + usedNames.join(", ") + ")"
+                  : "Reserve (0 active menu drinks)";
+              return (
+                "<tr>" +
+                  "<td><code>" + escapeHtml(item.id) + "</code></td>" +
+                  "<td>" + escapeHtml(item.category) + "</td>" +
+                  "<td><strong>" + escapeHtml(item.fullName) + "</strong></td>" +
+                  "<td>" + escapeHtml(item.simplifiedName) + "</td>" +
+                  "<td>" + escapeHtml(item.status) + " &middot; <strong>" + escapeHtml(countBadge) + "</strong></td>" +
+                "</tr>"
+              );
+            })
+            .join("");
+        }
+
+        var csvEl = document.getElementById("csv-preview-block");
+        if (csvEl) {
+          csvEl.textContent = buildBarInventoryListCsv();
+        }
+
+        var codeEl = document.getElementById("readme-json-backup");
+        if (codeEl && Array.isArray(COCKTAILS)) {
+          codeEl.textContent = JSON.stringify(
+            {
+              barName: "BZ's Speakeasy",
+              version: "2.3",
+              inventoryTotal: INVENTORY.getTotalCount(),
+              inventoryItems: INVENTORY.items,
+              cocktailsCount: COCKTAILS.length,
+              cocktails: COCKTAILS
+            },
+            null,
+            2
+          );
+        }
+      }
+
+      // Direct File Export Helper
+      function exportFileContent(content, filename, mimeType, buttonEl, feedbackLabel) {
+        var originalText = buttonEl.innerHTML;
+        function showFeedback(label) {
+          buttonEl.textContent = label;
+          setTimeout(function () {
+            buttonEl.innerHTML = originalText;
+          }, 1900);
+        }
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(content).catch(function () {});
+          }
+        } catch (ignore) {}
+
+        try {
+          var blob = new Blob([content], { type: mimeType || "text/plain;charset=utf-8;" });
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement("a");
+          link.setAttribute("href", url);
+          link.setAttribute("download", filename);
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+          showFeedback(feedbackLabel || ("Exported " + filename + "!"));
+        } catch (e) {
+          showFeedback("Exported to Clipboard!");
+        }
+      }
+
+      function activateView(targetId) {
+        var navLinks = document.querySelectorAll(".discreet-link");
+        navLinks.forEach(function (btn) {
+          btn.classList.toggle("active", btn.getAttribute("data-target") === targetId);
+        });
+        var panels = document.querySelectorAll(".view-panel");
+        panels.forEach(function (panel) {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function updateLockIndicators() {
+        var protectedBtns = document.querySelectorAll('[data-protected="true"]');
+        protectedBtns.forEach(function (btn) {
+          btn.classList.toggle("unlocked", isStaffUnlocked);
+        });
+      }
+
+      function openAuthModal(targetId) {
+        pendingTargetId = targetId;
+        var backdrop = document.getElementById("auth-modal-backdrop");
+        var input = document.getElementById("auth-password-input");
+        var err = document.getElementById("auth-error-msg");
+        if (err) err.style.display = "none";
+        if (input) input.value = "";
+        if (backdrop) {
+          backdrop.classList.add("open");
+          if (input) {
+            setTimeout(function () { input.focus(); }, 60);
+          }
+        }
+      }
+
+      function closeAuthModal() {
+        var backdrop = document.getElementById("auth-modal-backdrop");
+        if (backdrop) backdrop.classList.remove("open");
+        pendingTargetId = null;
+      }
+
+      // Safe Standalone File Builders (GitHub Pages Ready)
+      function buildStandaloneIndexHtml() {
+        var oTag = "<";
+        var cTag = "</";
+        var styleEl = document.querySelector("style");
+        var styleCss = styleEl ? styleEl.innerHTML : "";
+        var guestMarkup = document.getElementById("view-guest") ? document.getElementById("view-guest").innerHTML : "";
+
+        return (
+          "<!doctype html>\n" +
+          oTag + 'html lang="en">\n' +
+          oTag + "head>\n" +
+          '  <meta charset="utf-8">\n' +
+          '  <meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+          "  " + oTag + "title>BZ's Speakeasy — Cocktail Menu" + cTag + "title>\n" +
+          '  <link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+          '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+          '  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">\n' +
+          "  " + oTag + "style>" + styleCss + cTag + "style>\n" +
+          cTag + "head>\n" +
+          oTag + "body>\n" +
+          guestMarkup + "\n" +
+          "  " + oTag + "script>\n" +
+          "    document.addEventListener('DOMContentLoaded', function(){\n" +
+          "      var h = new Date().getHours();\n" +
+          "      if (h < 6 || h >= 18) document.documentElement.setAttribute('data-theme', 'dark');\n" +
+          "    });\n" +
+          "  " + cTag + "script>\n" +
+          cTag + "body>\n" +
+          cTag + "html>"
+        );
+      }
+
+      function buildStandaloneLabHtml() {
+        return "<!doctype html>\n" + document.documentElement.outerHTML;
+      }
+
+      function buildStandaloneReadmeMd() {
+        var cTag = "</";
+        var fence = "```";
+        var promptEl = document.getElementById("ai-rebuild-prompt");
+        var promptText = promptEl ? promptEl.textContent : "";
+        return (
+          "# BZ's Speakeasy — Complete Architecture, Mixology & Design System Reference (v2.3)\n\n" +
+          "A minimal, modern, Japanese wabi-sabi inspired cocktail web application suite for **BZ's Speakeasy** using 100% English typography (`Cormorant Garamond` + `DM Sans`) and an inline SVG `BZ` monogram coupe emblem:\n" +
+          "1. `index.html`: Guest-facing mobile bar menu for **BZ's Speakeasy** (12 crowd-pleasing cocktails with single base spirits, 5–6 ingredients max, <=3-word cohesive names with 'Silk' used only once, icon-only minimal SVG glass badges, and a single-line flavor profile).\n" +
+          "2. `lab.html`: Passcode-protected internal cocktail development and recipe spec book (`benzzers`, stealth UI with zero hints) featuring dedicated **Inspiration & Naming Stories**, live **52-Item Bar Inventory & Perishables Usage Tracking**, explicit **Drink Color & Garnish** visual specs, **Mixing Technique** banners, and one-cocktail-per-page print CSS.\n" +
+          "3. `bar_inventory_list.csv`: Complete 52-item source of truth mapping `Item_ID`, `Base_Spirit / Category`, `Full_Ingredient_Name`, `Simplified_Ingredient_Name`, and `Status / Notes`.\n" +
+          "4. `README.md`: Complete project documentation, mixology & naming rules, 52-item Bar Inventory List mapping table, 12-cocktail summary matrix, Changelog, and backup data.\n\n" +
+          "## Core Mixology & Naming Rules\n" +
+          "- **Single Primary Base Spirit:** Every cocktail uses only ONE primary base spirit (no blending two gins, rums, bourbons, or vodkas).\n" +
+          "- **Max 6 Ingredients:** Every cocktail contains 5 or 6 total ingredients.\n" +
+          "- **Naming Audit:** Every cocktail name is <=3 words, and the word 'Silk' appears only once across the entire menu (**Silk & Saffron**). Former working titles were renamed to **Amalfi Gold Drop**, **Rosepetal Clover Club**, and **Twilight Indigo Martini**.\n" +
+          "- **Storytelling:** Every cocktail in `lab.html` includes a dedicated `inspirationStory` field.\n\n" +
+          "## Bar Inventory List & Ingredient Mapping CSV (`bar_inventory_list.csv`)\n" +
+          fence + "csv\n" +
+          buildBarInventoryListCsv() + "\n" +
+          fence + "\n\n" +
+          "## Changelog\n" +
+          "- **v2.3:** Eliminated 'Silk' overuse across cocktail names (retaining only *Silk & Saffron* and renaming the others to *Amalfi Gold Drop*, *Rosepetal Clover Club*, and *Twilight Indigo Martini*); added dedicated **Inspiration & Naming Story** callouts in `lab.html`; redesigned Docs exports into a space-efficient **Compact Export Toolbar**; expanded `README.md` with complete architectural and mixological rules.\n" +
+          "- **v2.2:** Eliminated all base spirit blending so each of the 12 cocktails uses one single primary base spirit; simplified every recipe to 5 or 6 total ingredients (<=6); added explicit Drink Color and modern garnish specs.\n\n" +
+          "## Troubleshooting\n" +
+          "- Never use native `prompt()` or `alert()` in sandboxed previews; use an in-page modal.\n" +
+          "- Never include raw closing tags (`" + cTag + "script>`, `" + cTag + "head>`) inside inline script strings.\n\n" +
+          "## Prompt for AI\n" +
+          promptText + "\n\n" +
+          "## Consolidated Inventory & Cocktail Data (JSON)\n" +
+          fence + "json\n" +
+          JSON.stringify({ inventory: INVENTORY.items, cocktails: COCKTAILS }, null, 2) + "\n" +
+          fence + "\n"
+        );
+      }
+
+      // 7. Initialize App Safely After DOM Readiness
+      function initApp() {
+        try {
+          initAutoTheme();
+          renderGuestMenu();
+          renderInventoryDrawer();
+          renderLabRecipes();
+          renderReadmeAndCsvExports();
+          updateLockIndicators();
+
+          var brandHomeBtn = document.getElementById("brand-home-btn");
+          if (brandHomeBtn) {
+            brandHomeBtn.addEventListener("click", function () {
+              activateView("view-guest");
+            });
+          }
+
+          var navLinks = document.querySelectorAll(".discreet-link");
+          navLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+              var targetId = link.getAttribute("data-target");
+              var isProtected = link.getAttribute("data-protected") === "true";
+              if (isProtected && !isStaffUnlocked) {
+                openAuthModal(targetId);
+              } else {
+                activateView(targetId);
+              }
+            });
+          });
+
+          var authForm = document.getElementById("auth-form");
+          if (authForm) {
+            authForm.addEventListener("submit", function (e) {
+              e.preventDefault();
+              var input = document.getElementById("auth-password-input");
+              var err = document.getElementById("auth-error-msg");
+              var val = input ? (input.value || "").trim() : "";
+              if (val === ADMIN_PASSCODE) {
+                isStaffUnlocked = true;
+                updateLockIndicators();
+                var dest = pendingTargetId || "view-lab";
+                closeAuthModal();
+                activateView(dest);
+              } else {
+                if (err) err.style.display = "block";
+                if (input) input.select();
+              }
+            });
+          }
+
+          var authCloseBtn = document.getElementById("auth-close-btn");
+          var authCancelBtn = document.getElementById("auth-cancel-btn");
+          var authBackdrop = document.getElementById("auth-modal-backdrop");
+          if (authCloseBtn) authCloseBtn.addEventListener("click", closeAuthModal);
+          if (authCancelBtn) authCancelBtn.addEventListener("click", closeAuthModal);
+          if (authBackdrop) {
+            authBackdrop.addEventListener("click", function (e) {
+              if (e.target === authBackdrop) closeAuthModal();
+            });
+          }
+
+          var lockSessionBtn = document.getElementById("lock-session-btn");
+          if (lockSessionBtn) {
+            lockSessionBtn.addEventListener("click", function () {
+              isStaffUnlocked = false;
+              updateLockIndicators();
+              activateView("view-guest");
+            });
+          }
+
+          var mobileFilterBtn = document.getElementById("toggle-mobile-filters");
+          var filtersPanel = document.getElementById("lab-filters-panel");
+          if (mobileFilterBtn && filtersPanel) {
+            mobileFilterBtn.addEventListener("click", function () {
+              var isOpen = filtersPanel.classList.toggle("open");
+              mobileFilterBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+              mobileFilterBtn.textContent = isOpen ? "Hide Filters" : "Filters";
+            });
+          }
+
+          ["lab-search", "lab-filter-type", "lab-filter-spirit", "lab-filter-flavor"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+              el.addEventListener("input", renderLabRecipes);
+              el.addEventListener("change", renderLabRecipes);
+            }
+          });
+
+          var themeBtn = document.getElementById("theme-toggle");
+          if (themeBtn) {
+            themeBtn.addEventListener("click", function () {
+              var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+              applyTheme(isDark ? "light" : "dark");
+            });
+          }
+
+          var exportCsvBtn = document.getElementById("export-csv-btn");
+          if (exportCsvBtn) {
+            exportCsvBtn.addEventListener("click", function () {
+              exportFileContent(buildBarInventoryListCsv(), "bar_inventory_list.csv", "text/csv;charset=utf-8;", exportCsvBtn, "Exported CSV!");
+            });
+          }
+          var exportCsvInlineBtn = document.getElementById("export-csv-inline-btn");
+          if (exportCsvInlineBtn) {
+            exportCsvInlineBtn.addEventListener("click", function () {
+              exportFileContent(buildBarInventoryListCsv(), "bar_inventory_list.csv", "text/csv;charset=utf-8;", exportCsvInlineBtn, "Exported CSV!");
+            });
+          }
+          var exportIndexBtn = document.getElementById("export-index-btn");
+          if (exportIndexBtn) {
+            exportIndexBtn.addEventListener("click", function () {
+              exportFileContent(buildStandaloneIndexHtml(), "index.html", "text/html;charset=utf-8;", exportIndexBtn, "Exported index.html!");
+            });
+          }
+          var exportLabBtn = document.getElementById("export-lab-btn");
+          if (exportLabBtn) {
+            exportLabBtn.addEventListener("click", function () {
+              exportFileContent(buildStandaloneLabHtml(), "lab.html", "text/html;charset=utf-8;", exportLabBtn, "Exported lab.html!");
+            });
+          }
+          var exportReadmeBtn = document.getElementById("export-readme-btn");
+          if (exportReadmeBtn) {
+            exportReadmeBtn.addEventListener("click", function () {
+              exportFileContent(buildStandaloneReadmeMd(), "README.md", "text/markdown;charset=utf-8;", exportReadmeBtn, "Exported README.md!");
+            });
+          }
+          var exportAiPromptBtn = document.getElementById("export-ai-prompt-btn");
+          if (exportAiPromptBtn) {
+            exportAiPromptBtn.addEventListener("click", function () {
+              var promptEl = document.getElementById("ai-rebuild-prompt");
+              exportFileContent(promptEl ? promptEl.textContent : "", "ai-rebuild-prompt.txt", "text/plain;charset=utf-8;", exportAiPromptBtn, "Exported Prompt!");
+            });
+          }
+          var exportJsonBtn = document.getElementById("export-json-btn");
+          if (exportJsonBtn) {
+            exportJsonBtn.addEventListener("click", function () {
+              var jsonEl = document.getElementById("readme-json-backup");
+              exportFileContent(jsonEl ? jsonEl.textContent : "", "bzs-speakeasy-backup.json", "application/json;charset=utf-8;", exportJsonBtn, "Exported JSON!");
+            });
+          }
+          var exportJsonInlineBtn = document.getElementById("export-json-inline-btn");
+          if (exportJsonInlineBtn) {
+            exportJsonInlineBtn.addEventListener("click", function () {
+              var jsonEl = document.getElementById("readme-json-backup");
+              exportFileContent(jsonEl ? jsonEl.textContent : "", "bzs-speakeasy-backup.json", "application/json;charset=utf-8;", exportJsonInlineBtn, "Exported JSON!");
+            });
+          }
+        } catch (err) {
+          showFallbackMessage("Interactive script encountered an error (" + (err && err.message ? err.message : "unknown") + ").");
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+</body>
+</html>
